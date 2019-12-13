@@ -1,0 +1,2074 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{FEM\_Elliptic\_1D}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    This tutorial by Xiaozhou Li is licensed under a Creative Commons
+Attribution 4.0 International License.\\
+All code examples are also licensed under the
+\href{http://opensource.org/licenses/MIT}{MIT license}.
+
+    \section{1D Elliptic Equation}\label{d-elliptic-equation}
+
+The first tast of this tutorial is solving the 1D eplliptic equation
+with Dirichlet boundary condition:
+
+\begin{align}
+   -\frac{d}{dx}\left(c(x)\frac{d u(x)}{dx}\right) & = f(x),\,\, a < x < b \\
+   u(a) = g_a,\,\,u(b) & = g_b.
+\end{align}
+
+\begin{itemize}
+\tightlist
+\item
+  The Elliptic equation is a easy example to look at the basic idea of
+  the finite element methods.
+\item
+  Other numerical methods for solving partial differential equations,
+  such as finite difference methods, finite volume methods,
+  discontinuous Galerkin methods, etc., each method has its advantages
+  for particular problems.
+\item
+  For example, the discontinuous Galerkin (DG) methods is the most
+  popular methods used to solve hyperbolic equations, the details can be
+  found in the \href{http://}{DG tutorial}.
+\end{itemize}
+
+    \subsection{Finte Element Method}\label{finte-element-method}
+
+\subsubsection{Weak Formulation}\label{weak-formulation}
+
+To derive the weak formulation of the finite element methods, we first
+multiply a function \(v(x)\) on both sides of the original equation and
+take the integration over interval \([a, b]\):
+
+\begin{equation}
+    \int_a^b \left(-\frac{d}{dx}\left(c(x)\frac{d u(x)}{dx}\right)\right)  = \int_a^b f(x)v(x),
+\end{equation}
+
+where \(u(x)\) is called a trail function and \(v(x)\) is called a test
+function.
+
+Then, using the integration by parts, we obtain
+
+\begin{equation}
+    \int_a^b c(x) u'(x)v'(x) dx + c(b)u'(b)v(b) - c(a)u'(a)v(a) = \int_a^b f(x)v(x) dx.
+\end{equation}
+
+Here, since the Dirichlet boundary condtion gives \(u(a) = g_a\) and
+\(u(b) = g_b\) at the boundary points \(x = a\) and \(x = b\), we can
+choose the test function \(v(x)\) such that \(v(a) = v(b) = 0\).
+
+    Hence, we have
+
+\begin{equation}
+    \int_a^b c(x) u'(x)v'(x) dx = \int_a^b f(x)v(x) dx.
+\end{equation}
+
+By introducing the concept of Sobolev space, we can define the follows
+weak formulation.
+
+\textbf{Weak Formulation:}
+
+Let
+
+\begin{equation}
+    a(u, v)= \int_\Omega c u'v' dx\,\,\text{and }\, (f, v)=\int_Omega fv dx, 
+\end{equation}
+
+find \(u \in H^1(\Omega)\) such that
+
+\begin{equation}
+    a(u, v) = (f, v)
+\end{equation}
+
+for any \(v \in H_0^1(\Omega)\) where \(\Omega = (a, b)\).
+
+    \subsubsection{Weak Galerkin
+Formulation}\label{weak-galerkin-formulation}
+
+However, the above Sobolev space \(H^1(\Omega)\) is a \textbf{infinite}
+dimensional space. To numerically solve the solution, we usually have to
+consider a \textbf{finite} dimensional approximation subspace \(V_h\)
+belong to \(H^1(\Omega)\).
+
+\textbf{Weak Galerkin Formulation:}
+
+Find \(u_h \in V_h\) such that
+
+\begin{equation}
+    a(u_h, v_h) = (f, v_h)
+\end{equation}
+
+for any \(v_h \in V_h\) where \(\Omega = (a, b)\).
+
+    \subsubsection{Polynomial Approximation
+Space}\label{polynomial-approximation-space}
+
+A common way to construct the approximation space \(V_h\) is considering
+a partition \(\left\{x_j\right\}_0^N\) of \([a, b]\), such that
+
+\begin{equation}
+    a = x_0 < x_1 < \ldots < x_{N-1} < x_N = b,
+\end{equation}
+
+where \(I_j = [x_{j-1}, x_j]\) denotes the \(j\)th element,
+\(j = 1,\ldots,N\).
+
+Define the polynomial finite element space:
+
+\begin{equation}
+    V_h = \left\{v \in \mathcal{C}[a,b]:  v|_{I_j} \in \mathbb{P}^k(I_j),\,\, j = 1,\ldots,N\right\}
+\end{equation}
+
+\begin{itemize}
+\tightlist
+\item
+  \(V_h\) is actually a piecewise polynomial space based on the
+  generated mesh.
+\item
+  In the practical engineering, the most common way is using the linear
+  function (\(k = 1\)).
+\end{itemize}
+
+    \subsubsection{More Reference}\label{more-reference}
+
+\begin{itemize}
+\tightlist
+\item
+  For the detail of Sobolev space, one can refer to any finite element
+  methods book, such as
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Susanne C. Brenner and L. Ridgway Scott. \emph{The mathematical
+    theory of finite element methods}, volume 15 of Texts in Applied
+    Mathematics. Springer, New York, third edition, 2008.
+  \item
+    Philippe G. Ciarlet. \emph{The finite element method for elliptic
+    problems}, volume 40 of Classics in Applied Mathematics. Society for
+    Industrial and Applied Mathematics (SIAM), Philadelphia, PA, 2002.
+  \end{itemize}
+\end{itemize}
+
+    \subsection{Implementation}\label{implementation}
+
+In general, there are two ways to implement the finite element method: -
+\textbf{Loop of basis functions:} We write the approximation \(u_h\) as
+
+\begin{equation}
+    u_h(x) = \sum\limits_{j = 1}^{N_b}u_j\phi_j(x)
+\end{equation}
+
+where \(N_b\) is the number of basis functions. The implementation has
+main loops like:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \ControlFlowTok{for}\NormalTok{ j }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(Nb_trial): }
+        \ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(Nb_test):}
+            \CommentTok{# main code (global integration: [a, b])}
+\end{Highlighting}
+\end{Shaded}
+
+This approach has the follwing features: - It is a directly translation
+from the weak Galerkin formulation. - Degree of freedom is exactly
+\(N_b\), and the unknown \(\left\{u_j\right\}_{j=1}^{N_b}\) are
+independent. - Assembly of matrices (vectors) is straightforward. - The
+integrals is on the global interval \([a,b]\), each integration
+\(\int_a^b c(x)\phi_j(x)\phi_i(x)dx\) represents a unique entry of the
+global matrix. - May be a little complicated for unstructured meshes in
+multi-dimensional cases.
+
+    \begin{itemize}
+\tightlist
+\item
+  \textbf{Loop of elements:} We write the approximation \(u_h\) as
+
+  \begin{equation}
+  u_h(x) = \sum\limits_{n = 1}^N\sum\limits_{i=1}^{N_{lb}}u_{n,i}\phi_{n,i}(x)
+  \end{equation}
+
+  where \(N_{lb}\) is the number of local basis function on each
+  element. The implementation has main loops like:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ n }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(number_of_elements): }
+    \ControlFlowTok{for}\NormalTok{ alpha }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(Nlb_trial):}
+        \ControlFlowTok{for}\NormalTok{ beta }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(Nlb_test):}
+            \CommentTok{# main code (local integration: [x_n, x_n+1])}
+\end{Highlighting}
+\end{Shaded}
+
+  This approach has the follwing features:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Degree of freedom is not \(N\times N_{lb}\), and the unknown
+    \(\left\{u_{i,n}\right\}\) are dependent.
+  \item
+    Assembly of matrices (vectors) needs some derivation, there is a
+    local assembly to global assembly process.\\
+  \item
+    The integral is on local element \(I_n\) instead of the whole
+    domain, each integration
+    \(\int_{I_n} c(x)\phi_{n,\alpha(x)}\phi_{n,\beta(x)}dx\) needs to
+    add to correspond entry of the global matrix based on certain
+    information.
+  \end{itemize}
+\end{itemize}
+
+\textbf{Note:} It is rather a perference between the above two ways.
+There is no definite answer which one is better. Personally, I perfer
+the first way for Isogeometric Analysis (IGA) methods, and the second
+way for DG methods.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} environment setting, before any codes}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{numpy}\PY{n+nn}{.}\PY{n+nn}{polynomial}\PY{n+nn}{.}\PY{n+nn}{legendre} \PY{k}{as} \PY{n+nn}{npleg}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{o}{\PYZpc{}}\PY{k}{config} InlineBackend.figure\PYZus{}format = \PYZsq{}retina\PYZsq{}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+
+
+    \subsubsection{Mesh information
+matrices}\label{mesh-information-matrices}
+
+The first step is storing the mesh information for later computing
+usage. The mesh information we needed is follows:\\
+- Define global indices for all the mesh elements and mesh nodes. Let
+\(N\) denote the number of mesh elements and \(N_m\) denote the number
+of mesh nodes. Here \(N_m = N + 1\). - Define matrix \(P\) to be an
+information matrix consisting of the coordinates of all mesh nodes. The
+\(j\)th column of \(P\) is the coordinate of the \(j\)th finite element
+node. - Define matrix \(T\) to be an information matrix consisting of
+the global node indices of the mesh nodes of all the mesh elements. The
+\(n\)th column of \(T\) stores the global indices of the vertices of the
+\(n\)th element.
+
+    Note: - The input information is the left/right boundary and the number
+of elements
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \KeywordTok{def}\NormalTok{ generate_PT_1D(left_boundary, right_boundary, number_of_elements)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Therefore \(P[T[i,j]]\) gives the coordinate of the \(i\)th vertice on
+  the \(j\)th element.
+\item
+  This step is independent with the type of numerical methods, and for
+  unstructure meshs in multi-dimensional space, this step is rather
+  complicated.
+\item
+  For one dimensional mesh, this step is very simple:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(P = [x_0, x_1, \ldots, x_N]\);
+  \item
+    \(T = \text{index}\left(\left[\begin{array}{cccc}x_0, & x_1, & \ldots, & x_{N-1}\\  x_1, & x_2, & \ldots, & x_N\end{array}\right]\right) = \left[\begin{array}{cccc}0, & 1, & \ldots, & N-1\\  1, & 2, & \ldots, & N\end{array}\right]\).
+  \end{itemize}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{generate\PYZus{}PT\PYZus{}1D}\PY{p}{(}\PY{n}{left\PYZus{}boundary}\PY{p}{,} \PY{n}{right\PYZus{}boundary}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{)}\PY{p}{:}
+            \PY{n}{P} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{left\PYZus{}boundary}\PY{p}{,} \PY{n}{right\PYZus{}boundary}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{T} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{]}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n+nb}{int}\PY{p}{)}
+            \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{)}\PY{p}{:}
+                \PY{n}{T}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{j}
+                \PY{n}{T}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{j}\PY{o}{+}\PY{l+m+mi}{1}
+            \PY{k}{return} \PY{n}{P}\PY{p}{,} \PY{n}{T}
+\end{Verbatim}
+
+
+    \subsubsection{Finite element information
+matrices}\label{finite-element-information-matrices}
+
+The above mesh information matrices \(P\) and \(T\) are for the mesh
+nodes. We also need similar finite element information matrices \(P_b\)
+and \(T_b\) for the finite elements nodes, which are the nodes
+corresponding to the finite element basis functions. - Let \(N_b\)
+denote the total number of the finite element basis functions (= the
+number of unknowns = the total number of the finite element nodes). Here
+\(N_b = N + 1\). - Define matrix \(P_b\) to be an information matrix
+consisting of the coordinates of all finite element nodes. The \(j\)th
+column of \(P_b\) is the coordinate of the \(j\)th finite element node.
+- Define matrix \(T_b\) to be an information matrix consisting of the
+global node indices of the finite element nodes of all the mesh
+elements. The \(n\)th column of \(T\) stores the global indices of the
+nodes of the \(n\)th element.
+
+    Notes: - The input information is the mesh information matrices \(P\)
+and \(T\), and the type of basis functions
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \KeywordTok{def}\NormalTok{ generate_NbPbTb_1D(P, T, basis_type)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Unlike the mesh information matrices \(P\) and \(T\), the finite
+  element information matrices \(P_b\) and \(T_b\) are dependent on the
+  type of basis functions. They can be quite complicated, especially for
+  non-nodal basis functions.
+\item
+  One has to update the code based on the type of basis functions.
+\item
+  For simplicity, in this tutorial, we only consider the linear and
+  quadratic functions.
+\end{itemize}
+
+\textbf{Linear basis function:} - This is the simplest case (also the
+most popular one), the \(P_b\) and \(T_b\) are the same as the mesh
+information matrices \(P\) and \(T\).
+
+    \textbf{Quadratic basis function:} - For using quadratic basis function,
+on each element, besides two vertices one still needs another node (the
+middle point of the element). That is, let
+\(x_{n+\frac{1}{2}} = \frac{1}{2}\left(x_n + x_{n+1}\right)\), the
+\(P_b\) matrix is given by
+
+\begin{equation} 
+    P_b = [x_0, x_{\frac{1}{2}}, x_1, \ldots, x_N],
+\end{equation}
+
+with \(size(P_b) = 2N+1 = 2*size(P)-1\). - For matrix \(T_b\), on each
+element, we sort all the nodes in the order
+\(x_n, x_{n+1}, x_{n+\frac{1}{2}}\). Then, we have
+
+\begin{equation}
+    T_b = \text{index}\left(\left[\begin{array}{cccc}x_0, & x_1, & \ldots, & x_{N-1}\\
+                               x_1, & x_2, & \ldots, & x_N \\
+                               x_{\frac{1}{2}}, & x_{\frac{3}{2}}, &\ldots, & x_{N-\frac{1}{2}}\end{array}\right]\right) = \left[\begin{array}{cccc}0, & 2, & \ldots, & 2N-2\\
+                           2, & 4, & \ldots, & 2N \\ 1, & 3, &\ldots, & 2N-1\end{array}\right]
+\end{equation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{generate\PYZus{}NbPbTb\PYZus{}1D}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{n}{basis\PYZus{}type}\PY{o}{==}\PY{l+m+mi}{101}\PY{p}{)}\PY{p}{:}
+                \PY{n}{Nb} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{P}\PY{p}{)}
+                \PY{n}{Pb} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{P}\PY{p}{)}
+                \PY{n}{Tb} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{T}\PY{p}{)}
+            \PY{k}{elif} \PY{p}{(}\PY{n}{basis\PYZus{}type}\PY{o}{==}\PY{l+m+mi}{102}\PY{p}{)}\PY{p}{:}
+                \PY{n}{Nb} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{P}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+                \PY{n}{Pb} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{Nb}\PY{p}{)}
+                \PY{n}{Pb}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{P}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{P}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{Pb}\PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{p}{(}\PY{n}{Pb}\PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{i}\PY{p}{]} \PY{o}{+} \PY{n}{Pb}\PY{p}{[}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+                \PY{n}{Tb} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{P}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{int}\PY{p}{)}
+                \PY{n}{Tb}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{T}\PY{o}{*}\PY{l+m+mi}{2}
+                \PY{n}{Tb}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{Tb}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+            \PY{k}{return} \PY{n}{Nb}\PY{p}{,} \PY{n}{Pb}\PY{p}{,} \PY{n}{Tb}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} local debugging cell: generate\PYZus{}PT\PYZus{}1D, generate\PYZus{}NbPbTb\PYZus{}1D}
+        \PY{n}{left\PYZus{}boundary} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{right\PYZus{}boundary} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{number\PYZus{}of\PYZus{}elements} \PY{o}{=} \PY{l+m+mi}{10}
+        \PY{n}{P}\PY{p}{,} \PY{n}{T} \PY{o}{=} \PY{n}{generate\PYZus{}PT\PYZus{}1D}\PY{p}{(}\PY{n}{left\PYZus{}boundary}\PY{p}{,} \PY{n}{right\PYZus{}boundary}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{)}
+        
+        \PY{n}{basis\PYZus{}type} \PY{o}{=} \PY{l+m+mi}{102}
+        \PY{n}{Nb}\PY{p}{,} \PY{n}{Pb}\PY{p}{,} \PY{n}{Tb} \PY{o}{=} \PY{n}{generate\PYZus{}NbPbTb\PYZus{}1D}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}print (P); print (T); print (Nb); print (Pb); print (Tb)}
+\end{Verbatim}
+
+
+    \subsubsection{Local Basis Function}\label{local-basis-function}
+
+\begin{itemize}
+\item
+  For local basis functions, the first thing needs to know is the number
+  of local basis functions, \(N_{lb}\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ generate_Nlb(basis_type)}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Then, for each index of the basis, one needs the evaluation function
+  for the value of the basis function and its derivatives.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ local_basis_1D(x, vertices, basis_type, basis_index, der_order)}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Aagin, one has to update the code once new basis type is added.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{generate\PYZus{}Nlb}\PY{p}{(}\PY{n}{basis\PYZus{}type}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{p}{(}\PY{n}{basis\PYZus{}type}\PY{o}{==}\PY{l+m+mi}{101}\PY{p}{)}\PY{p}{:}
+                \PY{n}{Nlb} \PY{o}{=} \PY{l+m+mi}{2}
+            \PY{k}{elif} \PY{p}{(}\PY{n}{basis\PYZus{}type}\PY{o}{==}\PY{l+m+mi}{102}\PY{p}{)}\PY{p}{:}
+                \PY{n}{Nlb} \PY{o}{=} \PY{l+m+mi}{3}
+            \PY{k}{return} \PY{n}{Nlb}
+        
+        \PY{k}{def} \PY{n+nf}{local\PYZus{}basis\PYZus{}1D}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{vertices}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,} \PY{n}{basis\PYZus{}index}\PY{p}{,} \PY{n}{der\PYZus{}order}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{}basis\PYZus{}type==101: 1D linear basis functions}
+            \PY{c+c1}{\PYZsh{}basis\PYZus{}type==102: 1D quadratic basis functions}
+            
+            \PY{n}{left} \PY{o}{=} \PY{n}{vertices}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{right} \PY{o}{=} \PY{n}{vertices}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+            \PY{n}{h} \PY{o}{=} \PY{n}{right} \PY{o}{\PYZhy{}} \PY{n}{left}
+            \PY{k}{if} \PY{p}{(}\PY{n}{basis\PYZus{}type}\PY{o}{==}\PY{l+m+mi}{101}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{p}{(}\PY{n}{basis\PYZus{}index}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{if} \PY{p}{(}\PY{n}{der\PYZus{}order}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{r} \PY{o}{=} \PY{p}{(}\PY{n}{right} \PY{o}{\PYZhy{}} \PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{n}{h}
+                    \PY{k}{elif} \PY{p}{(}\PY{n}{der\PYZus{}order}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{r} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{h}
+                    \PY{k}{elif} \PY{p}{(}\PY{n}{der\PYZus{}order}\PY{o}{\PYZgt{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{r} \PY{o}{=} \PY{l+m+mf}{0.}
+                    \PY{k}{else}\PY{p}{:}
+                        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wrong der order}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{k}{elif} \PY{p}{(}\PY{n}{basis\PYZus{}index}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{if} \PY{p}{(}\PY{n}{der\PYZus{}order}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{r} \PY{o}{=} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{left}\PY{p}{)}\PY{o}{/}\PY{n}{h}
+                    \PY{k}{elif} \PY{p}{(}\PY{n}{der\PYZus{}order}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{r} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{h}
+                    \PY{k}{elif} \PY{p}{(}\PY{n}{der\PYZus{}order}\PY{o}{\PYZgt{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{r} \PY{o}{=} \PY{l+m+mi}{0}
+                    \PY{k}{else}\PY{p}{:}
+                        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wrong der order}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{k}{elif} \PY{p}{(}\PY{n}{basis\PYZus{}type}\PY{o}{==}\PY{l+m+mi}{102}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{p}{(}\PY{n}{basis\PYZus{}index}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{if} \PY{p}{(}\PY{n}{der\PYZus{}order}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{r} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{left}\PY{p}{)}\PY{o}{/}\PY{n}{h}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{l+m+mi}{3}\PY{o}{*}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{left}\PY{p}{)}\PY{o}{/}\PY{n}{h} \PY{o}{+} \PY{l+m+mi}{1}
+                    \PY{k}{elif} \PY{p}{(}\PY{n}{der\PYZus{}order}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{r} \PY{o}{=} \PY{l+m+mi}{4}\PY{o}{*}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{left}\PY{p}{)}\PY{o}{/}\PY{n}{h}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{l+m+mi}{3}\PY{o}{/}\PY{n}{h}
+                    \PY{k}{elif} \PY{p}{(}\PY{n}{der\PYZus{}order}\PY{o}{==}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{r} \PY{o}{=} \PY{l+m+mi}{4}\PY{o}{/}\PY{n}{h}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} 
+                    \PY{k}{elif} \PY{p}{(}\PY{n}{der\PYZus{}order}\PY{o}{\PYZgt{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{r} \PY{o}{=} \PY{l+m+mi}{0}
+                    \PY{k}{else}\PY{p}{:}
+                        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wrong der order}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{k}{elif} \PY{p}{(}\PY{n}{basis\PYZus{}index}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{if} \PY{p}{(}\PY{n}{der\PYZus{}order}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{r} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{left}\PY{p}{)}\PY{o}{/}\PY{n}{h}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{left}\PY{p}{)}\PY{o}{/}\PY{n}{h}
+                    \PY{k}{elif} \PY{p}{(}\PY{n}{der\PYZus{}order}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{r} \PY{o}{=} \PY{l+m+mi}{4}\PY{o}{*}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{left}\PY{p}{)}\PY{o}{/}\PY{n}{h}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{h}
+                    \PY{k}{elif} \PY{p}{(}\PY{n}{der\PYZus{}order}\PY{o}{==}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{r} \PY{o}{=} \PY{l+m+mi}{4}\PY{o}{/}\PY{n}{h}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} 
+                    \PY{k}{elif} \PY{p}{(}\PY{n}{der\PYZus{}order}\PY{o}{\PYZgt{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{r} \PY{o}{=} \PY{l+m+mi}{0}
+                    \PY{k}{else}\PY{p}{:}
+                        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wrong der order}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{k}{elif} \PY{p}{(}\PY{n}{basis\PYZus{}index}\PY{o}{==}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{if} \PY{p}{(}\PY{n}{der\PYZus{}order}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{r} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{left}\PY{p}{)}\PY{o}{/}\PY{n}{h}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{l+m+mi}{4}\PY{o}{*}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{left}\PY{p}{)}\PY{o}{/}\PY{n}{h}
+                    \PY{k}{elif} \PY{p}{(}\PY{n}{der\PYZus{}order}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{r} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{o}{*}\PY{p}{(}\PY{n}{x}\PY{o}{\PYZhy{}}\PY{n}{left}\PY{p}{)}\PY{o}{/}\PY{n}{h}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{l+m+mi}{4}\PY{o}{/}\PY{n}{h}
+                    \PY{k}{elif} \PY{p}{(}\PY{n}{der\PYZus{}order}\PY{o}{==}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{r} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{o}{/}\PY{n}{h}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} 
+                    \PY{k}{elif} \PY{p}{(}\PY{n}{der\PYZus{}order}\PY{o}{\PYZgt{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{r} \PY{o}{=} \PY{l+m+mi}{0}
+                    \PY{k}{else}\PY{p}{:}
+                        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wrong der order}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{k}{return} \PY{n}{r}
+\end{Verbatim}
+
+
+    \subsubsection{Local Assembly}\label{local-assembly}
+
+\begin{itemize}
+\tightlist
+\item
+  Now, we process the key part of this implemenation, \textbf{local
+  assembly}. Basically, this process takes two steps:
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    Computing the integral
+    \(\int_{I_n} c(x){\phi'_{n,\alpha}}(x){\phi'_{n,\beta}}(x)dx\)
+  \item
+    Adding the integral value to the correspond entry of the global
+    matrix.
+  \end{enumerate}
+\item
+  Note, it is simiar to deal with the source term and assemble the
+  global vector.
+\end{itemize}
+
+    \paragraph{Gauss Quadrature}\label{gauss-quadrature}
+
+\begin{itemize}
+\tightlist
+\item
+  However, to compute the integration in general, one needs use
+  numerical quadrature methods. Here, we choose the popular Gauss
+  quadrature:
+
+  \begin{itemize}
+  \item
+    For each element, we need the corresponding Gauss points and weights
+    based on the element vertices.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ generate_Gauss1D(vertices, Gauss_points_ref, Gauss_weights_ref)}
+\end{Highlighting}
+\end{Shaded}
+  \item
+    One has to provide the number of Gauss quadrature points, \(Gpn\),
+    and the correspond Gauss points and weights on the reference
+    interval \([-1,1]\).
+  \item
+    In python, the Gauss-Legendre quadrature can be easily generated by
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Gauss_points_ref, Gauss_weights_ref }\OperatorTok{=}\NormalTok{ npleg.leggauss(Gpn)}
+\end{Highlighting}
+\end{Shaded}
+  \end{itemize}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{generate\PYZus{}Gauss1D}\PY{p}{(}\PY{n}{vertices}\PY{p}{,} \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref}\PY{p}{)}\PY{p}{:}
+            \PY{n}{mid}  \PY{o}{=} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{p}{(}\PY{n}{vertices}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{vertices}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+            \PY{n}{scale} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{p}{(}\PY{n}{vertices}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{vertices}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+            \PY{k}{return} \PY{n}{mid} \PY{o}{+} \PY{n}{scale}\PY{o}{*}\PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{scale}\PY{o}{*}\PY{n}{Gauss\PYZus{}weights\PYZus{}ref}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} local debugging cell: global testing part 1}
+        \PY{c+c1}{\PYZsh{} left, right boundary}
+        \PY{n}{left\PYZus{}boundary} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{right\PYZus{}boundary} \PY{o}{=} \PY{l+m+mi}{1}
+        
+        \PY{c+c1}{\PYZsh{} number of elements, also size(T[0])}
+        \PY{n}{number\PYZus{}of\PYZus{}elements} \PY{o}{=} \PY{l+m+mi}{4}
+        
+        \PY{c+c1}{\PYZsh{} P, T matrice}
+        \PY{n}{P}\PY{p}{,} \PY{n}{T} \PY{o}{=} \PY{n}{generate\PYZus{}PT\PYZus{}1D}\PY{p}{(}\PY{n}{left\PYZus{}boundary}\PY{p}{,} \PY{n}{right\PYZus{}boundary}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{)}
+        
+        \PY{n}{basis\PYZus{}type\PYZus{}trial} \PY{o}{=} \PY{l+m+mi}{102}
+        \PY{n}{basis\PYZus{}type\PYZus{}test} \PY{o}{=} \PY{l+m+mi}{102}
+        
+        \PY{c+c1}{\PYZsh{} Nlb, number of local basis}
+        \PY{n}{Nlb\PYZus{}trial} \PY{o}{=} \PY{n}{generate\PYZus{}Nlb}\PY{p}{(}\PY{n}{basis\PYZus{}type\PYZus{}trial}\PY{p}{)}
+        \PY{n}{Nlb\PYZus{}test}  \PY{o}{=} \PY{n}{generate\PYZus{}Nlb}\PY{p}{(}\PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{)}
+        \PY{n}{Nb\PYZus{}trial}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{Tb\PYZus{}trial} \PY{o}{=} \PY{n}{generate\PYZus{}NbPbTb\PYZus{}1D}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}trial}\PY{p}{)}
+        \PY{n}{Nb\PYZus{}test}\PY{p}{,}  \PY{n}{Pb\PYZus{}test}\PY{p}{,}  \PY{n}{Tb\PYZus{}test}  \PY{o}{=} \PY{n}{generate\PYZus{}NbPbTb\PYZus{}1D}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Gauss point number}
+        \PY{n}{Gpn} \PY{o}{=} \PY{l+m+mi}{6}
+        \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref} \PY{o}{=} \PY{n}{npleg}\PY{o}{.}\PY{n}{leggauss}\PY{p}{(}\PY{n}{Gpn}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}Gauss\PYZus{}points, Gauss\PYZus{}weights = generate\PYZus{}Gauss1D([0,1], Gauss\PYZus{}points\PYZus{}ref, Gauss\PYZus{}weights\PYZus{}ref)}
+\end{Verbatim}
+
+
+    \paragraph{Assemble Matrix (diffusion
+term)}\label{assemble-matrix-diffusion-term}
+
+One needs: - Define the coefficient function \(c(x)\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ coeff_fun(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\item
+  Computing the integral
+  \(\int_{I_n} c(x){\phi'_{n,\alpha}}(x){\phi'_{n,\beta}}(x)dx\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ Gauss_int_1D_trial_test(Gpn, Gauss_points, Gauss_weights, }\OperatorTok{\textbackslash{}}
+\NormalTok{            coeff_fun, vertices, }\OperatorTok{\textbackslash{}}
+\NormalTok{            der_order_trial, basis_type_trial, basis_index_trial,}\OperatorTok{\textbackslash{}}
+\NormalTok{            der_order_test,  basis_type_test,  basis_index_test)}
+\end{Highlighting}
+\end{Shaded}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Here, in the above implementation, we allow the trial and test
+    functions can come from different approximation space.
+  \end{itemize}
+\item
+  Assemble the global matrix
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ assemble_matrix_1D(coeff_fun, Gauss_points_ref, Gauss_weights_ref, }\OperatorTok{\textbackslash{}}
+\NormalTok{       P, T, Tb_trial, Tb_test, Nlb_trial, Nlb_test, Nb_trial, Nb_test,}\OperatorTok{\textbackslash{}}
+\NormalTok{       basis_type_trial, der_order_trial, }\OperatorTok{\textbackslash{}}
+\NormalTok{       basis_type_test, der_order_test)}
+\end{Highlighting}
+\end{Shaded}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The correspond global index is provided by the \(T_b\) matrix.
+  \item
+    \textbf{Important}: the \textbf{trial} function contributes to the
+    \textbf{column} entry and the \textbf{test} function contributes to
+    the \textbf{row} entry of the global matrix.
+  \item
+    Here, the derivative order is \(1\).
+  \end{itemize}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{coeff\PYZus{}fun}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{x}\PY{p}{)} 
+        
+        \PY{k}{def} \PY{n+nf}{Gauss\PYZus{}int\PYZus{}1D\PYZus{}trial\PYZus{}test}\PY{p}{(}\PY{n}{Gpn}\PY{p}{,} \PY{n}{Gauss\PYZus{}points}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights}\PY{p}{,} \PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{vertices}\PY{p}{,} \PYZbs{}
+                                    \PY{n}{der\PYZus{}order\PYZus{}trial}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}trial}\PY{p}{,} \PY{n}{basis\PYZus{}index\PYZus{}trial}\PY{p}{,} \PYZbs{}
+                                    \PY{n}{der\PYZus{}order\PYZus{}test}\PY{p}{,}  \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{,}  \PY{n}{basis\PYZus{}index\PYZus{}test}\PY{p}{)}\PY{p}{:}
+            \PY{n}{int\PYZus{}value} \PY{o}{=} \PY{l+m+mf}{0.}
+            \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{n}{Gpn}\PY{p}{)}\PY{p}{:}
+                \PY{n}{int\PYZus{}value} \PY{o}{+}\PY{o}{=} \PY{n}{Gauss\PYZus{}weights}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{o}{*}\PY{n}{coeff\PYZus{}fun}\PY{p}{(}\PY{n}{Gauss\PYZus{}points}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PYZbs{}
+                                \PY{n}{local\PYZus{}basis\PYZus{}1D}\PY{p}{(}\PY{n}{Gauss\PYZus{}points}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{,}\PY{n}{vertices}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}trial}\PY{p}{,} \PY{n}{basis\PYZus{}index\PYZus{}trial}\PY{p}{,} \PY{n}{der\PYZus{}order\PYZus{}trial}\PY{p}{)}\PY{o}{*}\PYZbs{}
+                                \PY{n}{local\PYZus{}basis\PYZus{}1D}\PY{p}{(}\PY{n}{Gauss\PYZus{}points}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{,}\PY{n}{vertices}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{,} \PY{n}{basis\PYZus{}index\PYZus{}test}\PY{p}{,} \PY{n}{der\PYZus{}order\PYZus{}test}\PY{p}{)}
+            \PY{k}{return} \PY{n}{int\PYZus{}value}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{def} \PY{n+nf}{assemble\PYZus{}matrix\PYZus{}1D}\PY{p}{(}\PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref}\PY{p}{,} \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,}\PYZbs{}
+                               \PY{n}{Tb\PYZus{}trial}\PY{p}{,} \PY{n}{Tb\PYZus{}test}\PY{p}{,} \PY{n}{Nlb\PYZus{}trial}\PY{p}{,} \PY{n}{Nlb\PYZus{}test}\PY{p}{,} \PY{n}{Nb\PYZus{}trial}\PY{p}{,} \PY{n}{Nb\PYZus{}test}\PY{p}{,}\PYZbs{}
+                               \PY{n}{basis\PYZus{}type\PYZus{}trial}\PY{p}{,} \PY{n}{der\PYZus{}order\PYZus{}trial}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{,} \PY{n}{der\PYZus{}order\PYZus{}test}\PY{p}{)}\PY{p}{:}
+            \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{Nb\PYZus{}test}\PY{p}{,} \PY{n}{Nb\PYZus{}trial}\PY{p}{]}\PY{p}{)}
+            \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{)}\PY{p}{:}
+                \PY{n}{vertices} \PY{o}{=} \PY{n}{P}\PY{p}{[}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{n}\PY{p}{]}\PY{p}{:}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{n}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}
+                \PY{n}{Gauss\PYZus{}points}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights}\PY{o}{=}\PY{n}{generate\PYZus{}Gauss1D}\PY{p}{(}\PY{n}{vertices}\PY{p}{,} \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref}\PY{p}{)}
+                \PY{k}{for} \PY{n}{alpha} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{Nlb\PYZus{}trial}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{for} \PY{n}{beta} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{Nlb\PYZus{}test}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{int\PYZus{}value}\PY{o}{=}\PY{n}{Gauss\PYZus{}int\PYZus{}1D\PYZus{}trial\PYZus{}test}\PY{p}{(}\PY{n}{Gpn}\PY{p}{,} \PY{n}{Gauss\PYZus{}points}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights}\PY{p}{,} \PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{vertices}\PY{p}{,} \PYZbs{}
+                                                            \PY{n}{der\PYZus{}order\PYZus{}trial}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}trial}\PY{p}{,} \PY{n}{alpha}\PY{p}{,} \PYZbs{}
+                                                            \PY{n}{der\PYZus{}order\PYZus{}test}\PY{p}{,}  \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{,}  \PY{n}{beta}\PY{p}{)}
+                        \PY{n}{A}\PY{p}{[}\PY{n}{Tb\PYZus{}test}\PY{p}{[}\PY{n}{beta}\PY{p}{,}\PY{n}{n}\PY{p}{]}\PY{p}{,}\PY{n}{Tb\PYZus{}trial}\PY{p}{[}\PY{n}{alpha}\PY{p}{,}\PY{n}{n}\PY{p}{]}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{int\PYZus{}value}
+            \PY{k}{return} \PY{n}{A}          
+\end{Verbatim}
+
+
+    \paragraph{Assemble Vector (source
+term)}\label{assemble-vector-source-term}
+
+One needs: - Define the source function \(f(x)\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ source_fun(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\item
+  Computing the integral \(\int_{I_n} f(x){\phi_{n,\beta}}(x)dx\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ Gauss_int_1D_source_test(Gpn, Gauss_points, Gauss_weights, }\OperatorTok{\textbackslash{}}
+\NormalTok{                 source_fun, vertices, }\OperatorTok{\textbackslash{}}
+\NormalTok{                 der_order_test,  basis_type_test,  basis_index_test)}
+\end{Highlighting}
+\end{Shaded}
+\item
+  Assemble the global vector
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ assemble_vector_1D(source_fun, Gauss_points_ref, Gauss_weights_ref, }\OperatorTok{\textbackslash{}}
+\NormalTok{                   P, T, Tb_test, Nlb_test, Nb_test, }\OperatorTok{\textbackslash{}}
+\NormalTok{                   basis_type_test, der_order_test)}
+\end{Highlighting}
+\end{Shaded}
+
+  Note: it is a rather a simple version of asseble matrix process.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{source\PYZus{}fun}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}return 0.}
+             \PY{k}{return} \PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{Gauss\PYZus{}int\PYZus{}1D\PYZus{}source\PYZus{}test}\PY{p}{(}\PY{n}{Gpn}\PY{p}{,} \PY{n}{Gauss\PYZus{}points}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights}\PY{p}{,} \PY{n}{source\PYZus{}fun}\PY{p}{,} \PY{n}{vertices}\PY{p}{,} \PYZbs{}
+                                     \PY{n}{der\PYZus{}order\PYZus{}test}\PY{p}{,}  \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{,}  \PY{n}{basis\PYZus{}index\PYZus{}test}\PY{p}{)}\PY{p}{:}
+             \PY{n}{int\PYZus{}value} \PY{o}{=} \PY{l+m+mf}{0.}
+             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{n}{Gpn}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{int\PYZus{}value} \PY{o}{+}\PY{o}{=} \PY{n}{Gauss\PYZus{}weights}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{o}{*}\PY{n}{source\PYZus{}fun}\PY{p}{(}\PY{n}{Gauss\PYZus{}points}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PYZbs{}
+                                 \PY{n}{local\PYZus{}basis\PYZus{}1D}\PY{p}{(}\PY{n}{Gauss\PYZus{}points}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{,} \PY{n}{vertices}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{,} \PY{n}{basis\PYZus{}index\PYZus{}test}\PY{p}{,} \PY{n}{der\PYZus{}order\PYZus{}test}\PY{p}{)}
+             \PY{k}{return} \PY{n}{int\PYZus{}value}
+         
+         \PY{k}{def} \PY{n+nf}{assemble\PYZus{}vector\PYZus{}1D}\PY{p}{(}\PY{n}{source\PYZus{}fun}\PY{p}{,} \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref}\PY{p}{,} \PYZbs{}
+                                \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb\PYZus{}test}\PY{p}{,} \PY{n}{Nlb\PYZus{}test}\PY{p}{,} \PY{n}{Nb\PYZus{}test}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{,} \PY{n}{der\PYZus{}order\PYZus{}test}\PY{p}{)}\PY{p}{:}
+             \PY{n}{b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{Nb\PYZus{}test}\PY{p}{)}
+             \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{vertices} \PY{o}{=} \PY{n}{P}\PY{p}{[}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{n}\PY{p}{]}\PY{p}{:}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{n}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n}{Gauss\PYZus{}points}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights}\PY{o}{=}\PY{n}{generate\PYZus{}Gauss1D}\PY{p}{(}\PY{n}{vertices}\PY{p}{,} \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{beta} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{Nlb\PYZus{}test}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{int\PYZus{}value}\PY{o}{=}\PY{n}{Gauss\PYZus{}int\PYZus{}1D\PYZus{}source\PYZus{}test}\PY{p}{(}\PY{n}{Gpn}\PY{p}{,} \PY{n}{Gauss\PYZus{}points}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights}\PY{p}{,} \PY{n}{source\PYZus{}fun}\PY{p}{,} \PY{n}{vertices}\PY{p}{,} \PYZbs{}
+                                                         \PY{n}{der\PYZus{}order\PYZus{}test}\PY{p}{,}  \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{,}  \PY{n}{beta}\PY{p}{)}
+                     \PY{n}{b}\PY{p}{[}\PY{n}{Tb\PYZus{}test}\PY{p}{[}\PY{n}{beta}\PY{p}{,}\PY{n}{n}\PY{p}{]}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{int\PYZus{}value}
+             \PY{k}{return} \PY{n}{b}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} local debugging cell: assemble\PYZus{}matrix\PYZus{}1D, assemble\PYZus{}vector\PYZus{}1D, global testing part 2}
+         \PY{c+c1}{\PYZsh{}print (Nb\PYZus{}trial, Nb\PYZus{}test, np.shape(Tb\PYZus{}trial), np.shape(Tb\PYZus{}test))}
+         \PY{n}{A} \PY{o}{=} \PY{n}{assemble\PYZus{}matrix\PYZus{}1D}\PY{p}{(}\PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref}\PY{p}{,} 
+                                \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb\PYZus{}trial}\PY{p}{,} \PY{n}{Tb\PYZus{}test}\PY{p}{,} \PY{n}{Nlb\PYZus{}trial}\PY{p}{,} \PY{n}{Nlb\PYZus{}test}\PY{p}{,} \PY{n}{Nb\PYZus{}trial}\PY{p}{,} \PY{n}{Nb\PYZus{}test}\PY{p}{,}\PYZbs{}
+                                \PY{n}{basis\PYZus{}type\PYZus{}trial}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{b} \PY{o}{=} \PY{n}{assemble\PYZus{}vector\PYZus{}1D}\PY{p}{(}\PY{n}{source\PYZus{}fun}\PY{p}{,} \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref}\PY{p}{,} \PYZbs{}
+                                \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb\PYZus{}test}\PY{p}{,} \PY{n}{Nlb\PYZus{}test}\PY{p}{,} \PY{n}{Nb\PYZus{}test}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print (A)}
+         \PY{c+c1}{\PYZsh{}print (b)}
+\end{Verbatim}
+
+
+    \subsubsection{Treat Boundary
+Conditions}\label{treat-boundary-conditions}
+
+\paragraph{Boundary information
+matrix}\label{boundary-information-matrix}
+
+To deal with the boundary conditions in a general struture, one needs
+store the boundary information matrix \(boundarynodes\): -
+\(boundarynodes[0,k]\) is the type of the \(k\)th boundary finite
+element node: Dirichlet, Neumann, Robin, etc. - \(boundarynodes[1,k]\)
+is the global node index of the kth boundary finite element node. - Let
+\(nbn\) denote the number of boundary finite element nodes. - For more
+complicated methods, one may need to store more boundary information
+than the above.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+    \KeywordTok{def}\NormalTok{ generate_boundarynodes_1D(Pb)}
+\end{Highlighting}
+\end{Shaded}
+
+    \paragraph{Dirichlet boundary
+conditions}\label{dirichlet-boundary-conditions}
+
+\begin{itemize}
+\tightlist
+\item
+  Define \(g(x)\) to be the Dirichlet boundary function which satisfies
+  \(g(a)=g_a\) and \(g(b)=g_b\).
+\item
+  The Dirichlet boundary condition leads to the following equation:
+
+  \begin{align}
+  u_h(a) & = \sum\limits_{n = 1}^N\sum\limits_{i=1}^{N_{lb}}u_{n,i}\phi_{n,i}(a) = g(a)\\
+  u_h(b) & = \sum\limits_{n = 1}^N\sum\limits_{i=1}^{N_{lb}}u_{n,i}\phi_{n,i}(b) = g(b)
+  \end{align}
+\item
+  However, only the coefficient of the Dirichlet boundary nodes have
+  contribution to the final results:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Let \(i = boundary[1,k]\), then \(u_i = g(P_b[i])\), where \(u_i\)
+    is the \(i\)th unknown (global index).
+  \end{itemize}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{generate\PYZus{}boundarynodes\PYZus{}1D}\PY{p}{(}\PY{n}{Pb}\PY{p}{)}\PY{p}{:}
+             \PY{n}{nbn} \PY{o}{=} \PY{l+m+mi}{2}
+             \PY{n}{boundarynodes} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{nbn}\PY{p}{]}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{int}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} boundarynodes[0,i] = 0, Dirichlet}
+             \PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{Pb}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+             \PY{k}{return} \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes}
+         
+         \PY{k}{def} \PY{n+nf}{Dirichlet\PYZus{}fun}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{left\PYZus{}boundary}\PY{o}{+}\PY{l+m+mf}{1.e\PYZhy{}10}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mf}{0.}
+             \PY{k}{elif} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{right\PYZus{}boundary} \PY{o}{\PYZhy{}} \PY{l+m+mf}{1.e\PYZhy{}10}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{treat\PYZus{}Dirichlet\PYZus{}boundary}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{Pb}\PY{p}{,} \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nbn}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{p}{(}\PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{k}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{i} \PY{o}{=} \PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{k}\PY{p}{]}
+                     \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+                     \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+                     \PY{n}{b}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{Dirichlet\PYZus{}fun}\PY{p}{(}\PY{n}{Pb}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{k}{return} \PY{n}{A}\PY{p}{,} \PY{n}{b}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} local debugging cell: global testing part3}
+         \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes} \PY{o}{=} \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print (nbn)}
+         \PY{c+c1}{\PYZsh{}print (boundarynodes)}
+         
+         \PY{k}{def} \PY{n+nf}{exact\PYZus{}fun}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{x}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         
+         \PY{n}{A}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{n}{treat\PYZus{}Dirichlet\PYZus{}boundary}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print (A, b)}
+         
+         \PY{n}{u} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print (u)}
+         \PY{n}{err} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{err}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{u}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{exact\PYZus{}fun}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{err}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{u}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+4.6596689514802336e-05
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Summary (Framework)}\label{summary-framework}
+
+Now, we can put everthing together into the following framework:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ Poisson1D_solver(left_boundary, right_boundary, number_of_elements, }\OperatorTok{\textbackslash{}}
+\NormalTok{        basis_type, Gpn, coeff_fun, source_fun, Dirichlet_fun, exact_fun)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  Generate the mesh information matrices: \(P, T, E\);
+\item
+  Generate the finite element information matrices: \(P_b, T_b, E_b\);
+\item
+  Assembel the matrices and vectors: local assembly based on \(P, T, E\)
+  only, local to global needs \(P_b, T_b, E_b\);
+\item
+  Deal with the boundary conditions: boundary information matrix and
+  local assembly;
+\item
+  Solve linear systems: numerical linear algebra.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{Poisson1D\PYZus{}solver}\PY{p}{(}\PY{n}{left\PYZus{}boundary}\PY{p}{,} \PY{n}{right\PYZus{}boundary}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} \PYZbs{}
+                              \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,}\PYZbs{}
+                              \PY{n}{Gpn}\PY{p}{,} \PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{source\PYZus{}fun}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun}\PY{p}{,} \PY{n}{exact\PYZus{}fun}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} P, T matrice}
+             \PY{n}{P}\PY{p}{,} \PY{n}{T} \PY{o}{=} \PY{n}{generate\PYZus{}PT\PYZus{}1D}\PY{p}{(}\PY{n}{left\PYZus{}boundary}\PY{p}{,} \PY{n}{right\PYZus{}boundary}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{)}
+         
+             \PY{n}{basis\PYZus{}type\PYZus{}trial} \PY{o}{=} \PY{n}{basis\PYZus{}type}
+             \PY{n}{basis\PYZus{}type\PYZus{}test}  \PY{o}{=} \PY{n}{basis\PYZus{}type}
+         
+             \PY{c+c1}{\PYZsh{} Nlb, number of local basis}
+             \PY{n}{Nlb\PYZus{}trial} \PY{o}{=} \PY{n}{generate\PYZus{}Nlb}\PY{p}{(}\PY{n}{basis\PYZus{}type\PYZus{}trial}\PY{p}{)}
+             \PY{n}{Nlb\PYZus{}test}  \PY{o}{=} \PY{n}{generate\PYZus{}Nlb}\PY{p}{(}\PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{)}
+             \PY{n}{Nb\PYZus{}trial}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{Tb\PYZus{}trial} \PY{o}{=} \PY{n}{generate\PYZus{}NbPbTb\PYZus{}1D}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}trial}\PY{p}{)}
+             \PY{n}{Nb\PYZus{}test}\PY{p}{,}  \PY{n}{Pb\PYZus{}test}\PY{p}{,}  \PY{n}{Tb\PYZus{}test}  \PY{o}{=} \PY{n}{generate\PYZus{}NbPbTb\PYZus{}1D}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Gauss point number}
+             \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref} \PY{o}{=} \PY{n}{npleg}\PY{o}{.}\PY{n}{leggauss}\PY{p}{(}\PY{n}{Gpn}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Assemble local to global}
+             \PY{n}{A} \PY{o}{=} \PY{n}{assemble\PYZus{}matrix\PYZus{}1D}\PY{p}{(}\PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref}\PY{p}{,} 
+                                \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb\PYZus{}trial}\PY{p}{,} \PY{n}{Tb\PYZus{}test}\PY{p}{,} \PY{n}{Nlb\PYZus{}trial}\PY{p}{,} \PY{n}{Nlb\PYZus{}test}\PY{p}{,} \PY{n}{Nb\PYZus{}trial}\PY{p}{,} \PY{n}{Nb\PYZus{}test}\PY{p}{,}\PYZbs{}
+                                \PY{n}{basis\PYZus{}type\PYZus{}trial}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{b} \PY{o}{=} \PY{n}{assemble\PYZus{}vector\PYZus{}1D}\PY{p}{(}\PY{n}{source\PYZus{}fun}\PY{p}{,} \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref}\PY{p}{,} \PYZbs{}
+                                \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb\PYZus{}test}\PY{p}{,} \PY{n}{Nlb\PYZus{}test}\PY{p}{,} \PY{n}{Nb\PYZus{}test}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} deal with boundary}
+             \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes} \PY{o}{=} \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Dirichlet boundary}
+             \PY{n}{A}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{n}{treat\PYZus{}Dirichlet\PYZus{}boundary}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} solve the solution}
+             \PY{n}{u} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}print (u)}
+             
+             \PY{c+c1}{\PYZsh{} maximum error at nodes }
+             \PY{n}{err} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{)}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{err}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{u}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{exact\PYZus{}fun}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{err}\PY{p}{)}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{u}
+         \PY{c+c1}{\PYZsh{}}
+         \PY{n}{err}\PY{p}{,} \PY{n}{Pb}\PY{p}{,} \PY{n}{u} \PY{o}{=} \PY{n}{Poisson1D\PYZus{}solver}\PY{p}{(}\PY{n}{left\PYZus{}boundary}\PY{p}{,} \PY{n}{right\PYZus{}boundary}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} 
+                              \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D}\PY{p}{,} \PY{l+m+mi}{102}\PY{p}{,}\PYZbs{}
+                              \PY{n}{Gpn}\PY{p}{,} \PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{source\PYZus{}fun}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun}\PY{p}{,} \PY{n}{exact\PYZus{}fun}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{maximum error:  }\PY{l+s+si}{\PYZpc{}7.2e}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{err}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+maximum error:  4.66e-05
+
+    \end{Verbatim}
+
+    \textbf{Example 1}
+
+Use the 1D linear finite element method to solve the following equation:
+
+\begin{align*}
+     -\frac{d}{dx}\left(e^x\frac{d u(x)}{dx}\right) &= -e^x[\cos(x)-2\sin(x)-x\cos(x) - x\sin(x)],\,\, (0 \leq x \leq 1), \\
+     u(0) &= 0,\,\,u(1) = \cos(1).
+\end{align*}
+
+\begin{itemize}
+\tightlist
+\item
+  The analytic solution of this problem is \(u = x\cos(x)\), which can
+  be used to compute the error of the numerical solution.
+\item
+  Second order convergence \(\mathcal{O}(h^2)\) since the error is
+  reduced by \(1\) when \(h\) is reduced by half.
+\item
+  This matches the optimal approximation capability expected from
+  piecewise linear functions.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} function to output formatted order table}
+         \PY{k}{def} \PY{n+nf}{print\PYZus{}OrderTable}\PY{p}{(}\PY{n}{number\PYZus{}coarse}\PY{p}{,} \PY{n}{err}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{h      maximum error    order}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{err}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{number\PYZus{}of\PYZus{}elements} \PY{o}{=} \PY{n}{number\PYZus{}coarse}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}
+                 \PY{k}{if} \PY{p}{(}\PY{n}{i} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                     \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1/}\PY{l+s+si}{\PYZpc{}\PYZhy{}3d}\PY{l+s+s2}{    }\PY{l+s+si}{\PYZpc{}7.2e}\PY{l+s+s2}{        \PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} \PY{n}{err}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1/}\PY{l+s+si}{\PYZpc{}\PYZhy{}3d}\PY{l+s+s2}{    }\PY{l+s+si}{\PYZpc{}7.2e}\PY{l+s+s2}{       }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} \PY{n}{err}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{err}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{n}{err}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{left\PYZus{}boundary\PYZus{}ex1} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{right\PYZus{}boundary\PYZus{}ex1} \PY{o}{=} \PY{l+m+mi}{1}
+         
+         \PY{n}{Gpn} \PY{o}{=} \PY{l+m+mi}{6} 
+         
+         \PY{k}{def} \PY{n+nf}{coeff\PYZus{}fun\PYZus{}ex1}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{x}\PY{p}{)} 
+         
+         \PY{k}{def} \PY{n+nf}{source\PYZus{}fun\PYZus{}ex1}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{generate\PYZus{}boundarynodes\PYZus{}1D\PYZus{}ex1}\PY{p}{(}\PY{n}{Pb}\PY{p}{)}\PY{p}{:}
+             \PY{n}{nbn} \PY{o}{=} \PY{l+m+mi}{2}
+             \PY{n}{boundarynodes} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{nbn}\PY{p}{]}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{int}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} boundarynodes[0,i] = 0, Dirichlet}
+             \PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{Pb}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+             \PY{k}{return} \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes}
+         
+         \PY{k}{def} \PY{n+nf}{Dirichlet\PYZus{}fun\PYZus{}ex1}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tiny} \PY{o}{=} \PY{l+m+mf}{1.e\PYZhy{}12}
+             \PY{k}{if} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{left\PYZus{}boundary\PYZus{}ex1} \PY{o}{+} \PY{n}{tiny}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mf}{0.}
+             \PY{k}{elif} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{right\PYZus{}boundary\PYZus{}ex1} \PY{o}{\PYZhy{}} \PY{n}{tiny}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{exact\PYZus{}fun\PYZus{}ex1}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{x}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         
+         \PY{n}{number\PYZus{}coarse} \PY{o}{=} \PY{l+m+mi}{4}
+         \PY{n}{basis\PYZus{}type} \PY{o}{=} \PY{l+m+mi}{101}
+         
+         \PY{n}{err} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+             \PY{n}{number\PYZus{}of\PYZus{}elements} \PY{o}{=} \PY{n}{number\PYZus{}coarse}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}
+             \PY{n}{err}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{Pb}\PY{p}{,} \PY{n}{u} \PY{o}{=} \PY{n}{Poisson1D\PYZus{}solver}\PY{p}{(}\PY{n}{left\PYZus{}boundary\PYZus{}ex1}\PY{p}{,} \PY{n}{right\PYZus{}boundary\PYZus{}ex1}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} \PYZbs{}
+                                              \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D\PYZus{}ex1}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,}\PYZbs{}
+                                              \PY{n}{Gpn}\PY{p}{,} \PY{n}{coeff\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{source\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{exact\PYZus{}fun\PYZus{}ex1}\PY{p}{)}    
+         \PY{n}{print\PYZus{}OrderTable}\PY{p}{(}\PY{n}{number\PYZus{}coarse}\PY{p}{,} \PY{n}{err}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Pb}\PY{p}{,} \PY{n}{u}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Example 1, Linear FEM, N = }\PY{l+s+si}{\PYZpc{}3d}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+h      maximum error    order
+1/4      2.33e-03        --
+1/8      5.83e-04       2.00
+1/16     1.46e-04       1.99
+1/32     3.67e-05       2.00
+1/64     9.17e-06       2.00
+1/128    2.29e-06       2.00
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{Example 2}
+
+Use the 1D quadratric finite element method to solve the following
+equation:
+
+\begin{align*}
+    -\frac{d}{dx}\left(e^x\frac{d u(x)}{dx}\right) &= -e^x[\cos(x)-2\sin(x)-x\cos(x) - x\sin(x)],\,\, (0 \leq x \leq 1), \\
+    u(0) &= 0,\,\,u(1) = \cos(1).
+\end{align*}
+
+\begin{itemize}
+\tightlist
+\item
+  The analytic solution of this problem is \(u = x\cos(x)\), which can
+  be used to compute the error of the numerical solution.
+\item
+  Third order convergence \(\mathcal{O}(h^3)\) since the error is
+  reduced by \(1\) when \(h\) is reduced by half.
+\item
+  This matches the optimal approximation capability expected from
+  piecewise quadratric functions.
+\item
+  In fact, we observe superconvergence since the convergence order is
+  almost \(\mathcal{O}(h^4)\)
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{number\PYZus{}coarse} \PY{o}{=} \PY{l+m+mi}{4}
+         \PY{n}{basis\PYZus{}type} \PY{o}{=} \PY{l+m+mi}{102}
+         
+         \PY{n}{err} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+             \PY{n}{number\PYZus{}of\PYZus{}elements} \PY{o}{=} \PY{n}{number\PYZus{}coarse}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}
+             \PY{n}{err}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{Pb}\PY{p}{,} \PY{n}{u} \PY{o}{=} \PY{n}{Poisson1D\PYZus{}solver}\PY{p}{(}\PY{n}{left\PYZus{}boundary\PYZus{}ex1}\PY{p}{,} \PY{n}{right\PYZus{}boundary\PYZus{}ex1}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} \PYZbs{}
+                                             \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D\PYZus{}ex1}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,}\PYZbs{}
+                                             \PY{n}{Gpn}\PY{p}{,} \PY{n}{coeff\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{source\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{exact\PYZus{}fun\PYZus{}ex1}\PY{p}{)}
+         \PY{n}{print\PYZus{}OrderTable}\PY{p}{(}\PY{n}{number\PYZus{}coarse}\PY{p}{,} \PY{n}{err}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Pb}\PY{p}{,} \PY{n}{u}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Example 2, Quadratic FEM, N = }\PY{l+s+si}{\PYZpc{}3d}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+h      maximum error    order
+1/4      4.66e-05        --
+1/8      2.99e-06       3.96
+1/16     1.89e-07       3.98
+1/32     1.19e-08       3.99
+1/64     7.44e-10       4.00
+1/128    4.61e-11       4.01
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Extensions}\label{extensions}
+
+\paragraph{Neumann boundary
+conditions}\label{neumann-boundary-conditions}
+
+Consider 1D elliptic problem with Neumann boundary conditions:
+
+\begin{align}
+   -\frac{d}{dx}\left(c(x)\frac{d u(x)}{dx}\right) & = f(x),\,\, a < x < b \\
+   u(a) = g_a,\,\,u'(b) & = r_b;\quad\text{or}\quad u'(a) = r_a,\,\,u(b) = g_b.
+\end{align}
+
+\begin{itemize}
+\item
+  Recall the weak formulation, we have:
+
+  \begin{equation}
+  c(a)u'(a)v(a) - c(b)u'(b)v(b) + \int_a^b cu'v'dx = \int_a^b fv dx.
+  \end{equation}
+\item
+  If \(x = a\) is the Neumann boundary:
+
+  \begin{equation}
+   \int_a^b cu'v'dx = \int_a^b fv dx - r_a*c(a)v(a).
+  \end{equation}
+\item
+  If \(x = b\) is the Neumann boundary:
+
+  \begin{equation}
+   \int_a^b cu'v'dx = \int_a^b fv dx + r_b*c(b)v(b).
+  \end{equation}
+\item
+  If both \(x = a\) and \(x = b\) are the Neumann boundary, what is
+  \textbf{wrong}?
+\item
+  Therefore, for Neumann boundary conditions, one only needs to change
+  the assembly vector.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ Neumann_fun(x)}
+\KeywordTok{def}\NormalTok{ treat_Neumann_boundary(b, Pb, nbn, boundarynodes, }\OperatorTok{\textbackslash{}}
+\NormalTok{                            coeff_fun, Neumann_fun)}
+\end{Highlighting}
+\end{Shaded}
+
+  Since the left and right boundaries are slightly different ,
+  \(boundarynodes[2,:]\) needs to store the correspond information.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k}{def} \PY{n+nf}{generate\PYZus{}boundarynodes\PYZus{}1D\PYZus{}ex3}\PY{p}{(}\PY{n}{Pb}\PY{p}{)}\PY{p}{:}
+             \PY{n}{nbn} \PY{o}{=} \PY{l+m+mi}{2}
+             \PY{n}{boundarynodes} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{nbn}\PY{p}{]}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{int}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} boundarynodes[0,i] = 0, Dirichlet; boundarynodes[1,i] = 1, Neumann}
+             \PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{c+c1}{\PYZsh{} assume right boundary is Neumann}
+             \PY{c+c1}{\PYZsh{} add the third row to boundarynodes: 0, left; 1 right.}
+             \PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{Pb}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+             \PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{return} \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes}
+         
+         \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes} \PY{o}{=} \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{Dirichlet\PYZus{}fun}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{left\PYZus{}boundary}\PY{o}{+}\PY{l+m+mf}{1.e\PYZhy{}10}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mf}{0.}
+         
+         \PY{k}{def} \PY{n+nf}{Neumann\PYZus{}fun}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{right\PYZus{}boundary}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.e\PYZhy{}10}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             
+         \PY{k}{def} \PY{n+nf}{treat\PYZus{}Neumann\PYZus{}boundary}\PY{p}{(}\PY{n}{b}\PY{p}{,} \PY{n}{Pb}\PY{p}{,} \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes}\PY{p}{,} \PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{Neumann\PYZus{}fun}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nbn}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{p}{(}\PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{k}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{i} \PY{o}{=} \PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{k}\PY{p}{]}
+                     \PY{k}{if} \PY{p}{(}\PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{k}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{b}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{coeff\PYZus{}fun}\PY{p}{(}\PY{n}{Pb}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{Neumann\PYZus{}fun}\PY{p}{(}\PY{n}{Pb}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                     \PY{k}{elif} \PY{p}{(}\PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{k}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{b}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{coeff\PYZus{}fun}\PY{p}{(}\PY{n}{Pb}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{Neumann\PYZus{}fun}\PY{p}{(}\PY{n}{Pb}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{k}{return} \PY{n}{b}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{def} \PY{n+nf}{Poisson1D\PYZus{}solver}\PY{p}{(}\PY{n}{left\PYZus{}boundary}\PY{p}{,} \PY{n}{right\PYZus{}boundary}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} \PYZbs{}
+                              \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,}\PYZbs{}
+                              \PY{n}{Gpn}\PY{p}{,} \PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{source\PYZus{}fun}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun}\PY{p}{,} \PY{n}{Neumann\PYZus{}fun}\PY{p}{,} \PY{n}{exact\PYZus{}fun}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} P, T matrice}
+             \PY{n}{P}\PY{p}{,} \PY{n}{T} \PY{o}{=} \PY{n}{generate\PYZus{}PT\PYZus{}1D}\PY{p}{(}\PY{n}{left\PYZus{}boundary}\PY{p}{,} \PY{n}{right\PYZus{}boundary}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{)}
+         
+             \PY{n}{basis\PYZus{}type\PYZus{}trial} \PY{o}{=} \PY{n}{basis\PYZus{}type}
+             \PY{n}{basis\PYZus{}type\PYZus{}test}  \PY{o}{=} \PY{n}{basis\PYZus{}type}
+         
+             \PY{c+c1}{\PYZsh{} Nlb, number of local basis}
+             \PY{n}{Nlb\PYZus{}trial} \PY{o}{=} \PY{n}{generate\PYZus{}Nlb}\PY{p}{(}\PY{n}{basis\PYZus{}type\PYZus{}trial}\PY{p}{)}
+             \PY{n}{Nlb\PYZus{}test}  \PY{o}{=} \PY{n}{generate\PYZus{}Nlb}\PY{p}{(}\PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{)}
+             \PY{n}{Nb\PYZus{}trial}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{Tb\PYZus{}trial} \PY{o}{=} \PY{n}{generate\PYZus{}NbPbTb\PYZus{}1D}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}trial}\PY{p}{)}
+             \PY{n}{Nb\PYZus{}test}\PY{p}{,}  \PY{n}{Pb\PYZus{}test}\PY{p}{,}  \PY{n}{Tb\PYZus{}test}  \PY{o}{=} \PY{n}{generate\PYZus{}NbPbTb\PYZus{}1D}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Gauss point number}
+             \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref} \PY{o}{=} \PY{n}{npleg}\PY{o}{.}\PY{n}{leggauss}\PY{p}{(}\PY{n}{Gpn}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Assemble local to global}
+             \PY{n}{A} \PY{o}{=} \PY{n}{assemble\PYZus{}matrix\PYZus{}1D}\PY{p}{(}\PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref}\PY{p}{,} 
+                                \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb\PYZus{}trial}\PY{p}{,} \PY{n}{Tb\PYZus{}test}\PY{p}{,} \PY{n}{Nlb\PYZus{}trial}\PY{p}{,} \PY{n}{Nlb\PYZus{}test}\PY{p}{,} \PY{n}{Nb\PYZus{}trial}\PY{p}{,} \PY{n}{Nb\PYZus{}test}\PY{p}{,}\PYZbs{}
+                                \PY{n}{basis\PYZus{}type\PYZus{}trial}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{b} \PY{o}{=} \PY{n}{assemble\PYZus{}vector\PYZus{}1D}\PY{p}{(}\PY{n}{source\PYZus{}fun}\PY{p}{,} \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref}\PY{p}{,} \PYZbs{}
+                                \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb\PYZus{}test}\PY{p}{,} \PY{n}{Nlb\PYZus{}test}\PY{p}{,} \PY{n}{Nb\PYZus{}test}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} deal with boundary}
+             \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes} \PY{o}{=} \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Dirichlet boundary}
+             \PY{n}{A}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{n}{treat\PYZus{}Dirichlet\PYZus{}boundary}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Neumann boundary}
+             \PY{n}{b} \PY{o}{=} \PY{n}{treat\PYZus{}Neumann\PYZus{}boundary}\PY{p}{(}\PY{n}{b}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes}\PY{p}{,} \PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{Neumann\PYZus{}fun}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} solve the solution}
+             \PY{n}{u} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}print (u)}
+             
+             \PY{c+c1}{\PYZsh{} maximum error at nodes }
+             \PY{n}{err} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{)}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{err}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{u}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{exact\PYZus{}fun}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{err}\PY{p}{)}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{u}
+         \PY{c+c1}{\PYZsh{}}
+         \PY{n}{err}\PY{p}{,} \PY{n}{Pb}\PY{p}{,} \PY{n}{u} \PY{o}{=} \PY{n}{Poisson1D\PYZus{}solver}\PY{p}{(}\PY{n}{left\PYZus{}boundary}\PY{p}{,} \PY{n}{right\PYZus{}boundary}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} \PYZbs{}
+                              \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D\PYZus{}ex3}\PY{p}{,} \PY{l+m+mi}{102}\PY{p}{,}\PYZbs{}
+                              \PY{n}{Gpn}\PY{p}{,} \PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{source\PYZus{}fun}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun}\PY{p}{,} \PY{n}{Neumann\PYZus{}fun}\PY{p}{,} \PY{n}{exact\PYZus{}fun}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{maximum error: }\PY{l+s+si}{\PYZpc{}7.2e}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{err}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+maximum error: 4.66e-11
+
+    \end{Verbatim}
+
+    \textbf{Example 3}
+
+Use the 1D linear and quadratric finite element method to solve the
+following equation:
+
+\begin{align*}
+     -\frac{d}{dx}\left(e^x\frac{d u(x)}{dx}\right) &= -e^x[\cos(x)-2\sin(x)-x\cos(x) - x\sin(x)],\,\, (0 \leq x \leq 1), \\
+     u(0) &= 0,\,\,u'(1) = \cos(1) - \sin(1).
+\end{align*}
+
+\begin{itemize}
+\tightlist
+\item
+  The analytic solution of this problem is \(u = x\cos(x)\), which can
+  be used to compute the error of the numerical solution.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k}{def} \PY{n+nf}{Dirichlet\PYZus{}fun\PYZus{}ex3}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tiny} \PY{o}{=} \PY{l+m+mf}{1.e\PYZhy{}12}
+             \PY{k}{if} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{left\PYZus{}boundary\PYZus{}ex1} \PY{o}{+} \PY{n}{tiny}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mf}{0.}
+             
+         \PY{k}{def} \PY{n+nf}{Neumann\PYZus{}fun\PYZus{}ex3}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tiny} \PY{o}{=} \PY{l+m+mf}{1.e\PYZhy{}12}
+             \PY{k}{if} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{right\PYZus{}boundary} \PY{o}{\PYZhy{}} \PY{n}{tiny}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             
+         \PY{n}{number\PYZus{}coarse} \PY{o}{=} \PY{l+m+mi}{4}
+         \PY{n}{basis\PYZus{}type} \PY{o}{=} \PY{l+m+mi}{101}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Linear Finite Element: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{err} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+             \PY{n}{number\PYZus{}of\PYZus{}elements} \PY{o}{=} \PY{n}{number\PYZus{}coarse}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}
+             \PY{n}{err}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{Pb}\PY{p}{,} \PY{n}{u} \PY{o}{=} \PY{n}{Poisson1D\PYZus{}solver}\PY{p}{(}\PY{n}{left\PYZus{}boundary\PYZus{}ex1}\PY{p}{,} \PY{n}{right\PYZus{}boundary\PYZus{}ex1}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} \PYZbs{}
+                                 \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D\PYZus{}ex3}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,}\PYZbs{}
+                                 \PY{n}{Gpn}\PY{p}{,} \PY{n}{coeff\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{source\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun\PYZus{}ex3}\PY{p}{,} \PY{n}{Neumann\PYZus{}fun\PYZus{}ex3}\PY{p}{,} \PY{n}{exact\PYZus{}fun\PYZus{}ex1}\PY{p}{)}
+         \PY{n}{print\PYZus{}OrderTable}\PY{p}{(}\PY{n}{number\PYZus{}coarse}\PY{p}{,} \PY{n}{err}\PY{p}{)}    
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Pb}\PY{p}{,} \PY{n}{u}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Example 3, Linear FEM, N = }\PY{l+s+si}{\PYZpc{}3d}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{)}
+         
+         \PY{n}{basis\PYZus{}type} \PY{o}{=} \PY{l+m+mi}{102}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Quadratic Finite Element: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{err} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+             \PY{n}{number\PYZus{}of\PYZus{}elements} \PY{o}{=} \PY{n}{number\PYZus{}coarse}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}
+             \PY{n}{err}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{Pb}\PY{p}{,} \PY{n}{u} \PY{o}{=} \PY{n}{Poisson1D\PYZus{}solver}\PY{p}{(}\PY{n}{left\PYZus{}boundary\PYZus{}ex1}\PY{p}{,} \PY{n}{right\PYZus{}boundary\PYZus{}ex1}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} \PYZbs{}
+                                 \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D\PYZus{}ex3}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,}\PYZbs{}
+                                 \PY{n}{Gpn}\PY{p}{,} \PY{n}{coeff\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{source\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun\PYZus{}ex3}\PY{p}{,} \PY{n}{Neumann\PYZus{}fun\PYZus{}ex3}\PY{p}{,} \PY{n}{exact\PYZus{}fun\PYZus{}ex1}\PY{p}{)}
+         \PY{n}{print\PYZus{}OrderTable}\PY{p}{(}\PY{n}{number\PYZus{}coarse}\PY{p}{,} \PY{n}{err}\PY{p}{)}    
+         \PY{n}{ax2} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Pb}\PY{p}{,} \PY{n}{u}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Example 3, Quadratic FEM, N = }\PY{l+s+si}{\PYZpc{}3d}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Linear Finite Element: 
+h      maximum error    order
+1/4      6.79e-03        --
+1/8      1.70e-03       2.00
+1/16     4.24e-04       2.00
+1/32     1.06e-04       2.00
+1/64     2.65e-05       2.00
+1/128    6.62e-06       2.00
+Quadratic Finite Element: 
+h      maximum error    order
+1/4      4.88e-05        --
+1/8      3.06e-06       3.99
+1/16     1.92e-07       4.00
+1/32     1.20e-08       4.00
+1/64     7.49e-10       4.00
+1/128    4.66e-11       4.00
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Robin boundary conditions}\label{robin-boundary-conditions}
+
+Consider 1D elliptic problem with Robin boundary conditions:
+
+\begin{align}
+   -\frac{d}{dx}\left(c(x)\frac{d u(x)}{dx}\right) & = f(x),\,\, a < x < b \\
+   u'(a) + q_a u(a) = p_a,\,\,u(b) & = g_b;\quad\text{or}\quad u(a) = g_a,\,\,u'(b) + q_b u(b) = p_b.
+\end{align}
+
+\begin{itemize}
+\item
+  Recall the weak formulation, we have:
+
+  \begin{equation}
+  c(a)u'(a)v(a) - c(b)u'(b)v(b) + \int_a^b cu'v'dx = \int_a^b fv dx.
+  \end{equation}
+\item
+  If \(x = a\) is the Robin boundary:
+
+  \begin{equation}
+   \int_a^b cu'v'dx - q_a c(a)u(a)= \int_a^b fv dx - p_ac(a)v(a).
+  \end{equation}
+\item
+  If \(x = b\) is the Robin boundary:
+
+  \begin{equation}
+   \int_a^b cu'v'dx + q_b c(b)u(b)= \int_a^b fv dx + p_bc(b)v(b).
+  \end{equation}
+\item
+  Therefore, for Robin boundary conditions, one only needs to change the
+  both assembly matrix and vector.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ Robin_fun(x)}
+\KeywordTok{def}\NormalTok{ Robin_coeff(x)}
+\KeywordTok{def}\NormalTok{ treat_Robin_boundary(A, b, Pb, nbn, boundarynodes, coeff_fun, }\OperatorTok{\textbackslash{}}
+\NormalTok{                        Robin_fun, Robin_coeff)}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k}{def} \PY{n+nf}{generate\PYZus{}boundarynodes\PYZus{}1D\PYZus{}ex4}\PY{p}{(}\PY{n}{Pb}\PY{p}{)}\PY{p}{:}
+             \PY{n}{nbn} \PY{o}{=} \PY{l+m+mi}{2}
+             \PY{n}{boundarynodes} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{nbn}\PY{p}{]}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{int}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} boundarynodes[0,i] = 0, Dirichlet; 1, Neumann; 2, Robin}
+             \PY{c+c1}{\PYZsh{} assume left boundary: Robin, right boundary: Dirichlet}
+             \PY{c+c1}{\PYZsh{} add the third row to boundarynodes: 0, left; 1 right.}
+             \PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{2}
+             \PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{Pb}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+             \PY{k}{return} \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes}
+         
+         \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes} \PY{o}{=} \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{Dirichlet\PYZus{}fun}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{right\PYZus{}boundary}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.e\PYZhy{}10}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{Robin\PYZus{}fun}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{left\PYZus{}boundary}\PY{o}{+}\PY{l+m+mf}{1.e\PYZhy{}10}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mf}{1.}
+         
+         \PY{k}{def} \PY{n+nf}{Robin\PYZus{}coeff}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:} 
+             \PY{k}{if} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{left\PYZus{}boundary}\PY{o}{+}\PY{l+m+mf}{1.e\PYZhy{}10}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mf}{1.}
+         
+         \PY{k}{def} \PY{n+nf}{treat\PYZus{}Robin\PYZus{}boundary}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{Pb}\PY{p}{,} \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes}\PY{p}{,} \PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{Robin\PYZus{}fun}\PY{p}{,} \PY{n}{Robin\PYZus{}coeff}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nbn}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{p}{(}\PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{k}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{i} \PY{o}{=} \PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{k}\PY{p}{]}
+                     \PY{k}{if} \PY{p}{(}\PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{k}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{Robin\PYZus{}coeff}\PY{p}{(}\PY{n}{Pb}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{coeff\PYZus{}fun}\PY{p}{(}\PY{n}{Pb}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                         \PY{n}{b}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{coeff\PYZus{}fun}\PY{p}{(}\PY{n}{Pb}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{Robin\PYZus{}fun}\PY{p}{(}\PY{n}{Pb}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                     \PY{k}{elif} \PY{p}{(}\PY{n}{boundarynodes}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{k}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{A}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{Robin\PYZus{}coeff}\PY{p}{(}\PY{n}{Pb}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{coeff\PYZus{}fun}\PY{p}{(}\PY{n}{Pb}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                         \PY{n}{b}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{coeff\PYZus{}fun}\PY{p}{(}\PY{n}{Pb}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{Robin\PYZus{}fun}\PY{p}{(}\PY{n}{Pb}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{k}{return} \PY{n}{A}\PY{p}{,} \PY{n}{b}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k}{def} \PY{n+nf}{Poisson1D\PYZus{}solver}\PY{p}{(}\PY{n}{left\PYZus{}boundary}\PY{p}{,} \PY{n}{right\PYZus{}boundary}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} \PYZbs{}
+                              \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,}\PYZbs{}
+                              \PY{n}{Gpn}\PY{p}{,} \PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{source\PYZus{}fun}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun}\PY{p}{,} \PY{n}{Neumann\PYZus{}fun}\PY{p}{,} \PY{n}{Robin\PYZus{}fun}\PY{p}{,} \PY{n}{Robin\PYZus{}coeff}\PY{p}{,} \PY{n}{exact\PYZus{}fun}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} P, T matrice}
+             \PY{c+c1}{\PYZsh{}print (number\PYZus{}of\PYZus{}elements)}
+             \PY{n}{P}\PY{p}{,} \PY{n}{T} \PY{o}{=} \PY{n}{generate\PYZus{}PT\PYZus{}1D}\PY{p}{(}\PY{n}{left\PYZus{}boundary}\PY{p}{,} \PY{n}{right\PYZus{}boundary}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{)}
+         
+             \PY{n}{basis\PYZus{}type\PYZus{}trial} \PY{o}{=} \PY{n}{basis\PYZus{}type}
+             \PY{n}{basis\PYZus{}type\PYZus{}test}  \PY{o}{=} \PY{n}{basis\PYZus{}type}
+         
+             \PY{c+c1}{\PYZsh{} Nlb, number of local basis}
+             \PY{n}{Nlb\PYZus{}trial} \PY{o}{=} \PY{n}{generate\PYZus{}Nlb}\PY{p}{(}\PY{n}{basis\PYZus{}type\PYZus{}trial}\PY{p}{)}
+             \PY{n}{Nlb\PYZus{}test}  \PY{o}{=} \PY{n}{generate\PYZus{}Nlb}\PY{p}{(}\PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{)}
+             \PY{n}{Nb\PYZus{}trial}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{Tb\PYZus{}trial} \PY{o}{=} \PY{n}{generate\PYZus{}NbPbTb\PYZus{}1D}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}trial}\PY{p}{)}
+             \PY{n}{Nb\PYZus{}test}\PY{p}{,}  \PY{n}{Pb\PYZus{}test}\PY{p}{,}  \PY{n}{Tb\PYZus{}test}  \PY{o}{=} \PY{n}{generate\PYZus{}NbPbTb\PYZus{}1D}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Gauss point number}
+             \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref} \PY{o}{=} \PY{n}{npleg}\PY{o}{.}\PY{n}{leggauss}\PY{p}{(}\PY{n}{Gpn}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Assemble local to global}
+             \PY{n}{A} \PY{o}{=} \PY{n}{assemble\PYZus{}matrix\PYZus{}1D}\PY{p}{(}\PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref}\PY{p}{,} 
+                                \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb\PYZus{}trial}\PY{p}{,} \PY{n}{Tb\PYZus{}test}\PY{p}{,} \PY{n}{Nlb\PYZus{}trial}\PY{p}{,} \PY{n}{Nlb\PYZus{}test}\PY{p}{,} \PY{n}{Nb\PYZus{}trial}\PY{p}{,} \PY{n}{Nb\PYZus{}test}\PY{p}{,}\PYZbs{}
+                                \PY{n}{basis\PYZus{}type\PYZus{}trial}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{b} \PY{o}{=} \PY{n}{assemble\PYZus{}vector\PYZus{}1D}\PY{p}{(}\PY{n}{source\PYZus{}fun}\PY{p}{,} \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref}\PY{p}{,} \PYZbs{}
+                                \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb\PYZus{}test}\PY{p}{,} \PY{n}{Nlb\PYZus{}test}\PY{p}{,} \PY{n}{Nb\PYZus{}test}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} deal with boundary}
+             \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes} \PY{o}{=} \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Dirichlet boundary}
+             \PY{n}{A}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{n}{treat\PYZus{}Dirichlet\PYZus{}boundary}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Neumann boundary}
+             \PY{n}{b} \PY{o}{=} \PY{n}{treat\PYZus{}Neumann\PYZus{}boundary}\PY{p}{(}\PY{n}{b}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes}\PY{p}{,} \PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{Neumann\PYZus{}fun}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Robin boundary}
+             \PY{n}{A}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{n}{treat\PYZus{}Robin\PYZus{}boundary}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes}\PY{p}{,} \PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{Robin\PYZus{}fun}\PY{p}{,} \PY{n}{Robin\PYZus{}coeff}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} solve the solution}
+             \PY{n}{u} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}print (u)}
+             
+             \PY{c+c1}{\PYZsh{} maximum error at nodes }
+             \PY{n}{err} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{)}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{err}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{u}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{exact\PYZus{}fun}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{err}\PY{p}{)}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{u}
+         \PY{c+c1}{\PYZsh{}}
+         \PY{n}{err}\PY{p}{,} \PY{n}{Pb}\PY{p}{,} \PY{n}{u} \PY{o}{=} \PY{n}{Poisson1D\PYZus{}solver}\PY{p}{(}\PY{n}{left\PYZus{}boundary}\PY{p}{,} \PY{n}{right\PYZus{}boundary}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} \PYZbs{}
+                             \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D\PYZus{}ex4}\PY{p}{,} \PY{l+m+mi}{102}\PY{p}{,}\PYZbs{}
+                             \PY{n}{Gpn}\PY{p}{,} \PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{source\PYZus{}fun}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun}\PY{p}{,} \PY{n}{Neumann\PYZus{}fun}\PY{p}{,} \PY{n}{Robin\PYZus{}fun}\PY{p}{,} \PY{n}{Robin\PYZus{}coeff}\PY{p}{,} \PY{n}{exact\PYZus{}fun}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{maximum error: }\PY{l+s+si}{\PYZpc{}7.2e}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{err}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+maximum error: 3.08e-11
+
+    \end{Verbatim}
+
+    \textbf{Example 4}
+
+Use the 1D linear and quadratric finite element method to solve the
+following equation:
+
+\begin{align*}
+     -\frac{d}{dx}\left(e^x\frac{d u(x)}{dx}\right) &= -e^x[\cos(x)-2\sin(x)-x\cos(x) - x\sin(x)],\,\, (0 \leq x \leq 1), \\
+     u'(0) + u(0) &= 1,\,\,u(1) = \cos(1).
+\end{align*}
+
+\begin{itemize}
+\tightlist
+\item
+  The analytic solution of this problem is \(u = x\cos(x)\), which can
+  be used to compute the error of the numerical solution.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k}{def} \PY{n+nf}{Dirichlet\PYZus{}fun\PYZus{}ex4}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tiny} \PY{o}{=} \PY{l+m+mf}{1.e\PYZhy{}12}
+             \PY{k}{if} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{right\PYZus{}boundary\PYZus{}ex1} \PY{o}{\PYZhy{}} \PY{n}{tiny}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             
+         \PY{k}{def} \PY{n+nf}{Robin\PYZus{}fun\PYZus{}ex4}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tiny} \PY{o}{=} \PY{l+m+mf}{1.e\PYZhy{}12}
+             \PY{k}{if} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{left\PYZus{}boundary} \PY{o}{+} \PY{n}{tiny}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{1}
+         
+         \PY{k}{def} \PY{n+nf}{Robin\PYZus{}coeff\PYZus{}ex4}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tiny} \PY{o}{=} \PY{l+m+mf}{1.e\PYZhy{}12}
+             \PY{k}{if} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{left\PYZus{}boundary} \PY{o}{+} \PY{n}{tiny}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{1}
+         
+         \PY{n}{number\PYZus{}coarse} \PY{o}{=} \PY{l+m+mi}{4}
+         \PY{n}{basis\PYZus{}type} \PY{o}{=} \PY{l+m+mi}{101}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Linear Finite Element: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{err} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+             \PY{n}{number\PYZus{}of\PYZus{}elements} \PY{o}{=} \PY{n}{number\PYZus{}coarse}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}
+             \PY{n}{err}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{Pb}\PY{p}{,} \PY{n}{u} \PY{o}{=} \PY{n}{Poisson1D\PYZus{}solver}\PY{p}{(}\PY{n}{left\PYZus{}boundary\PYZus{}ex1}\PY{p}{,} \PY{n}{right\PYZus{}boundary\PYZus{}ex1}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} \PYZbs{}
+                                 \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D\PYZus{}ex4}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,}\PYZbs{}
+                                 \PY{n}{Gpn}\PY{p}{,} \PY{n}{coeff\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{source\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun\PYZus{}ex4}\PY{p}{,} \PY{n}{Neumann\PYZus{}fun\PYZus{}ex3}\PY{p}{,} \PYZbs{}
+                                 \PY{n}{Robin\PYZus{}fun\PYZus{}ex4}\PY{p}{,} \PY{n}{Robin\PYZus{}coeff\PYZus{}ex4}\PY{p}{,} \PY{n}{exact\PYZus{}fun\PYZus{}ex1}\PY{p}{)}
+         \PY{n}{print\PYZus{}OrderTable}\PY{p}{(}\PY{n}{number\PYZus{}coarse}\PY{p}{,} \PY{n}{err}\PY{p}{)}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Pb}\PY{p}{,} \PY{n}{u}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Example 4, Linear FEM, N = }\PY{l+s+si}{\PYZpc{}3d}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{)}
+         
+         \PY{n}{basis\PYZus{}type} \PY{o}{=} \PY{l+m+mi}{102}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Quadratic Finite Element: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{err} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+             \PY{n}{number\PYZus{}of\PYZus{}elements} \PY{o}{=} \PY{n}{number\PYZus{}coarse}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}
+             \PY{n}{err}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{Pb}\PY{p}{,} \PY{n}{u} \PY{o}{=} \PY{n}{Poisson1D\PYZus{}solver}\PY{p}{(}\PY{n}{left\PYZus{}boundary\PYZus{}ex1}\PY{p}{,} \PY{n}{right\PYZus{}boundary\PYZus{}ex1}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} \PYZbs{}
+                                     \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D\PYZus{}ex4}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,}\PYZbs{}
+                                     \PY{n}{Gpn}\PY{p}{,} \PY{n}{coeff\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{source\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun\PYZus{}ex4}\PY{p}{,} \PY{n}{Neumann\PYZus{}fun\PYZus{}ex3}\PY{p}{,} \PYZbs{}
+                                     \PY{n}{Robin\PYZus{}fun\PYZus{}ex4}\PY{p}{,} \PY{n}{Robin\PYZus{}coeff\PYZus{}ex4}\PY{p}{,} \PY{n}{exact\PYZus{}fun\PYZus{}ex1}\PY{p}{)}
+         \PY{n}{print\PYZus{}OrderTable}\PY{p}{(}\PY{n}{number\PYZus{}coarse}\PY{p}{,} \PY{n}{err}\PY{p}{)}    
+         \PY{n}{ax2} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Pb}\PY{p}{,} \PY{n}{u}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Example 4, Quadratic FEM, N = }\PY{l+s+si}{\PYZpc{}3d}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Linear Finite Element: 
+h      maximum error    order
+1/4      1.83e-02        --
+1/8      4.60e-03       1.99
+1/16     1.15e-03       2.00
+1/32     2.88e-04       2.00
+1/64     7.20e-05       2.00
+1/128    1.80e-05       2.00
+Quadratic Finite Element: 
+h      maximum error    order
+1/4      3.28e-05        --
+1/8      2.05e-06       4.00
+1/16     1.28e-07       4.00
+1/32     8.01e-09       4.00
+1/64     5.00e-10       4.00
+1/128    3.08e-11       4.02
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Measurements for Errors}\label{measurements-for-errors}
+
+In above examples, we have considered the maximum error of the
+approximation on the finite element \textbf{nodes}. However, we should
+point out it is not a proper measurement for errors. It is the reason
+that the quadratic basis funcions lead to convergence rate of
+\(\mathcal{O}(h^4)\), the so-called superconvergence (sort of cheating).
+The common measurements (norms) for errors are the following: -
+\(L^\infty\) norm error:
+\[ \|u - u_h\|_{\infty} =\sup\limits_{x\in \Omega}|u(x)- u_h(x)|. \] -
+\(L^2\) norm error:
+\[ \|u - u_h\|_{0} = \left(\int_{\Omega}|u - u_h|^2 dx\right)^{\frac{1}{2}}.\]
+- \(H^1\) semi-norm error:
+\[ |u - u_h|_{1} = \left(\int_{\Omega}|u' - u'_h|^2 dx\right)^{\frac{1}{2}}.\]
+- \(H^1\) norm error:
+\[ |u - u_h|_{1} = \left(\int_{\Omega}|u - u_h|^2 dx + \int_{\Omega}|u' - u'_h|^2 dx\right)^{\frac{1}{2}}.\]
+
+    \paragraph{Evaluation of Finite Element
+Solution}\label{evaluation-of-finite-element-solution}
+
+By solving the final linear system, we obtain the unknonw coefficients
+for the basis form of the approximation \(u_h\),
+
+\begin{equation}
+    u_h(x) = \sum\limits_{j = 1}^{N_b}u_j\phi_j(x),
+\end{equation}
+
+however, the local basis functions we defined are for the local basis
+form of \(u_h\)
+
+\begin{equation}
+    u_h(x) = \sum\limits_{n = 1}^N\sum\limits_{i=1}^{N_{lb}}u_{n,i}\phi_{n,i}(x).
+\end{equation}
+
+Then, the question is how should we translate \(\left\{u_j\right\}\) to
+\(\left\{u_{n,i}\right\}\). - Based on the information matrix \(T_b\),
+we have the following relation: \[ u_{n,i} = u_{T_b[i,n]}.\] - For
+\(x \in I_n\), we have
+\[ u_h(x) = \sum\limits_{i=1}^{N_{lb}} u_{T_b[i,n]}\phi_{n,i}(x).\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k}{def} \PY{n+nf}{point\PYZus{}location}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{P}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tiny} \PY{o}{=} \PY{l+m+mf}{1.e\PYZhy{}10}
+             \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{P}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{p}{(}\PY{n}{P}\PY{p}{[}\PY{n}{n}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{tiny} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{x} \PY{o+ow}{and} \PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{P}\PY{p}{[}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{n}{tiny}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{return} \PY{n}{n}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{P}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}
+         
+         \PY{k}{def} \PY{n+nf}{FE\PYZus{}solution}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{u}\PY{p}{,} \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,} \PY{n}{Nlb}\PY{p}{,} \PY{n}{der\PYZus{}order}\PY{p}{)}\PY{p}{:}
+             \PY{n}{result} \PY{o}{=} \PY{l+m+mf}{0.}
+             \PY{n}{n} \PY{o}{=} \PY{n}{point\PYZus{}location}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{P}\PY{p}{)}
+             \PY{n}{vertices} \PY{o}{=} \PY{n}{P}\PY{p}{[}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{n}\PY{p}{]}\PY{p}{:}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{n}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{Nlb}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{result} \PY{o}{+}\PY{o}{=} \PY{n}{u}\PY{p}{[}\PY{n}{Tb}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{n}\PY{p}{]}\PY{p}{]}\PY{o}{*}\PY{n}{local\PYZus{}basis\PYZus{}1D}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{vertices}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{der\PYZus{}order}\PY{p}{)}
+             \PY{k}{return} \PY{n}{result}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k}{def} \PY{n+nf}{exact\PYZus{}fun\PYZus{}ex1}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{der\PYZus{}order}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{p}{(}\PY{n}{der\PYZus{}order} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{x}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             \PY{k}{elif} \PY{p}{(}\PY{n}{der\PYZus{}order} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{x}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k}{def} \PY{n+nf}{norm}\PY{p}{(}\PY{n}{u}\PY{p}{,} \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,} \PY{n}{Nlb}\PY{p}{,} \PY{n}{exact\PYZus{}fun}\PY{p}{,} \PY{n}{Gpn}\PY{p}{,} \PY{n}{norm\PYZus{}type} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{L2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref} \PY{o}{=} \PY{n}{npleg}\PY{o}{.}\PY{n}{leggauss}\PY{p}{(}\PY{n}{Gpn}\PY{p}{)}
+             \PY{n}{err} \PY{o}{=} \PY{l+m+mf}{0.}
+             \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{P}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{vertices} \PY{o}{=} \PY{n}{P}\PY{p}{[}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{n}\PY{p}{]}\PY{p}{:}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{n}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n}{Gauss\PYZus{}points}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights}\PY{o}{=}\PY{n}{generate\PYZus{}Gauss1D}\PY{p}{(}\PY{n}{vertices}\PY{p}{,} \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref}\PY{p}{)}
+                 \PY{k}{if} \PY{p}{(}\PY{n}{norm\PYZus{}type} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{L2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{n}{Gpn}\PY{p}{)}\PY{p}{:}
+                          \PY{n}{err} \PY{o}{+}\PY{o}{=} \PY{n}{Gauss\PYZus{}weights}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{o}{*}\PY{p}{(}\PY{n}{exact\PYZus{}fun}\PY{p}{(}\PY{n}{Gauss\PYZus{}points}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)} \PY{o}{\PYZhy{}} \PYZbs{}
+                                 \PY{n}{FE\PYZus{}solution}\PY{p}{(}\PY{n}{Gauss\PYZus{}points}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{,} \PY{n}{u}\PY{p}{,} \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,} \PY{n}{Nlb}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+                 \PY{k}{elif} \PY{p}{(}\PY{n}{norm\PYZus{}type} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{H1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}  
+                     \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{n}{Gpn}\PY{p}{)}\PY{p}{:}
+                          \PY{n}{err} \PY{o}{+}\PY{o}{=} \PY{n}{Gauss\PYZus{}weights}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{o}{*}\PY{p}{(}\PY{n}{exact\PYZus{}fun}\PY{p}{(}\PY{n}{Gauss\PYZus{}points}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZhy{}} \PYZbs{}
+                                 \PY{n}{FE\PYZus{}solution}\PY{p}{(}\PY{n}{Gauss\PYZus{}points}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{,} \PY{n}{u}\PY{p}{,} \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,} \PY{n}{Nlb}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+                 \PY{k}{elif} \PY{p}{(}\PY{n}{norm\PYZus{}type} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Linf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{n}{Gpn}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{err} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{err}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{exact\PYZus{}fun}\PY{p}{(}\PY{n}{Gauss\PYZus{}points}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)} \PY{o}{\PYZhy{}} \PYZbs{}
+                                 \PY{n}{FE\PYZus{}solution}\PY{p}{(}\PY{n}{Gauss\PYZus{}points}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{,} \PY{n}{u}\PY{p}{,} \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,} \PY{n}{Nlb}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{k}{if} \PY{p}{(}\PY{n}{norm\PYZus{}type} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{L2}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{or} \PY{n}{norm\PYZus{}type} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{H1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{err}\PY{p}{)}
+             \PY{k}{elif} \PY{p}{(}\PY{n}{norm\PYZus{}type} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Linf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{err}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k}{def} \PY{n+nf}{Poisson1D\PYZus{}solver}\PY{p}{(}\PY{n}{left\PYZus{}boundary}\PY{p}{,} \PY{n}{right\PYZus{}boundary}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} \PYZbs{}
+                              \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,}\PYZbs{}
+                              \PY{n}{Gpn}\PY{p}{,} \PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{source\PYZus{}fun}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun}\PY{p}{,} \PY{n}{Neumann\PYZus{}fun}\PY{p}{,} \PY{n}{Robin\PYZus{}fun}\PY{p}{,} \PY{n}{Robin\PYZus{}coeff}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} P, T matrice}
+             \PY{c+c1}{\PYZsh{}print (number\PYZus{}of\PYZus{}elements)}
+             \PY{n}{P}\PY{p}{,} \PY{n}{T} \PY{o}{=} \PY{n}{generate\PYZus{}PT\PYZus{}1D}\PY{p}{(}\PY{n}{left\PYZus{}boundary}\PY{p}{,} \PY{n}{right\PYZus{}boundary}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{)}
+         
+             \PY{n}{basis\PYZus{}type\PYZus{}trial} \PY{o}{=} \PY{n}{basis\PYZus{}type}
+             \PY{n}{basis\PYZus{}type\PYZus{}test}  \PY{o}{=} \PY{n}{basis\PYZus{}type}
+         
+             \PY{c+c1}{\PYZsh{} Nlb, number of local basis}
+             \PY{n}{Nlb\PYZus{}trial} \PY{o}{=} \PY{n}{generate\PYZus{}Nlb}\PY{p}{(}\PY{n}{basis\PYZus{}type\PYZus{}trial}\PY{p}{)}
+             \PY{n}{Nlb\PYZus{}test}  \PY{o}{=} \PY{n}{generate\PYZus{}Nlb}\PY{p}{(}\PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{)}
+             \PY{n}{Nb\PYZus{}trial}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{Tb\PYZus{}trial} \PY{o}{=} \PY{n}{generate\PYZus{}NbPbTb\PYZus{}1D}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}trial}\PY{p}{)}
+             \PY{n}{Nb\PYZus{}test}\PY{p}{,}  \PY{n}{Pb\PYZus{}test}\PY{p}{,}  \PY{n}{Tb\PYZus{}test}  \PY{o}{=} \PY{n}{generate\PYZus{}NbPbTb\PYZus{}1D}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Gauss point number}
+             \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref} \PY{o}{=} \PY{n}{npleg}\PY{o}{.}\PY{n}{leggauss}\PY{p}{(}\PY{n}{Gpn}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Assemble local to global}
+             \PY{n}{A} \PY{o}{=} \PY{n}{assemble\PYZus{}matrix\PYZus{}1D}\PY{p}{(}\PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref}\PY{p}{,} 
+                                \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb\PYZus{}trial}\PY{p}{,} \PY{n}{Tb\PYZus{}test}\PY{p}{,} \PY{n}{Nlb\PYZus{}trial}\PY{p}{,} \PY{n}{Nlb\PYZus{}test}\PY{p}{,} \PY{n}{Nb\PYZus{}trial}\PY{p}{,} \PY{n}{Nb\PYZus{}test}\PY{p}{,}\PYZbs{}
+                                \PY{n}{basis\PYZus{}type\PYZus{}trial}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{b} \PY{o}{=} \PY{n}{assemble\PYZus{}vector\PYZus{}1D}\PY{p}{(}\PY{n}{source\PYZus{}fun}\PY{p}{,} \PY{n}{Gauss\PYZus{}points\PYZus{}ref}\PY{p}{,} \PY{n}{Gauss\PYZus{}weights\PYZus{}ref}\PY{p}{,} \PYZbs{}
+                                \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb\PYZus{}test}\PY{p}{,} \PY{n}{Nlb\PYZus{}test}\PY{p}{,} \PY{n}{Nb\PYZus{}test}\PY{p}{,} \PY{n}{basis\PYZus{}type\PYZus{}test}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} deal with boundary}
+             \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes} \PY{o}{=} \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D}\PY{p}{(}\PY{n}{Pb\PYZus{}trial}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Dirichlet boundary}
+             \PY{n}{A}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{n}{treat\PYZus{}Dirichlet\PYZus{}boundary}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Neumann boundary}
+             \PY{n}{b} \PY{o}{=} \PY{n}{treat\PYZus{}Neumann\PYZus{}boundary}\PY{p}{(}\PY{n}{b}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes}\PY{p}{,} \PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{Neumann\PYZus{}fun}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Robin boundary}
+             \PY{n}{A}\PY{p}{,} \PY{n}{b} \PY{o}{=} \PY{n}{treat\PYZus{}Robin\PYZus{}boundary}\PY{p}{(}\PY{n}{A}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{nbn}\PY{p}{,} \PY{n}{boundarynodes}\PY{p}{,} \PY{n}{coeff\PYZus{}fun}\PY{p}{,} \PY{n}{Robin\PYZus{}fun}\PY{p}{,} \PY{n}{Robin\PYZus{}coeff}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} solve the solution}
+             \PY{n}{u} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{solve}\PY{p}{(}\PY{n}{A}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}print (u)}
+             
+             \PY{k}{return} \PY{n}{u}\PY{p}{,} \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Pb\PYZus{}trial}\PY{p}{,} \PY{n}{Tb\PYZus{}trial}
+         \PY{c+c1}{\PYZsh{}}
+         \PY{n}{u}\PY{p}{,} \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Pb}\PY{p}{,} \PY{n}{Tb} \PY{o}{=} \PY{n}{Poisson1D\PYZus{}solver}\PY{p}{(}\PY{n}{left\PYZus{}boundary\PYZus{}ex1}\PY{p}{,} \PY{n}{right\PYZus{}boundary\PYZus{}ex1}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} \PYZbs{}
+                             \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D\PYZus{}ex1}\PY{p}{,} \PY{l+m+mi}{102}\PY{p}{,}\PYZbs{}
+                             \PY{n}{Gpn}\PY{p}{,} \PY{n}{coeff\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{source\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{Neumann\PYZus{}fun\PYZus{}ex3}\PY{p}{,} \PY{n}{Robin\PYZus{}fun\PYZus{}ex4}\PY{p}{,} \PY{n}{Robin\PYZus{}coeff\PYZus{}ex4}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}for i in range (np.size(Pb)):}
+         \PY{c+c1}{\PYZsh{}    print (u[i] \PYZhy{} FE\PYZus{}solution(Pb[i], u, P, T, Tb, 102, 3, 0))}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{norm}\PY{p}{(}\PY{n}{u}\PY{p}{,} \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb}\PY{p}{,} \PY{l+m+mi}{102}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{exact\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{Gpn}\PY{p}{,} \PY{n}{norm\PYZus{}type} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Linf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1.1115981131230857e-08
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} function to output formatted order table}
+         \PY{k}{def} \PY{n+nf}{print\PYZus{}OrderTable3}\PY{p}{(}\PY{n}{number\PYZus{}coarse}\PY{p}{,} \PY{n}{erri}\PY{p}{,} \PY{n}{err2}\PY{p}{,} \PY{n}{err1}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ h    Linf norm  order  L2 norm  order  H1 semi  order}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{n}{erri}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{number\PYZus{}of\PYZus{}elements} \PY{o}{=} \PY{n}{number\PYZus{}coarse}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}
+                 \PY{k}{if} \PY{p}{(}\PY{n}{i} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                     \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1/}\PY{l+s+si}{\PYZpc{}\PYZhy{}3d}\PY{l+s+s2}{  }\PY{l+s+si}{\PYZpc{}7.2e}\PY{l+s+s2}{   \PYZhy{}\PYZhy{}   }\PY{l+s+si}{\PYZpc{}7.2e}\PY{l+s+s2}{   \PYZhy{}\PYZhy{}   }\PY{l+s+si}{\PYZpc{}7.2e}\PY{l+s+s2}{   \PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PYZbs{}
+                            \PY{p}{(}\PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} \PY{n}{erri}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{err2}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{err1}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1/}\PY{l+s+si}{\PYZpc{}\PYZhy{}3d}\PY{l+s+s2}{  }\PY{l+s+si}{\PYZpc{}7.2e}\PY{l+s+s2}{  }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s2}{  }\PY{l+s+si}{\PYZpc{}7.2e}\PY{l+s+s2}{  }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s2}{  }\PY{l+s+si}{\PYZpc{}7.2e}\PY{l+s+s2}{  }\PY{l+s+si}{\PYZpc{}4.2f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PYZbs{}
+                                \PY{p}{(}\PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} \PYZbs{}
+                                 \PY{n}{erri}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{erri}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{n}{erri}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                 \PY{n}{err2}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{err2}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{n}{err2}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                                 \PY{n}{err1}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{err1}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{n}{err1}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{Example 1 in Different Measurements}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{number\PYZus{}coarse} \PY{o}{=} \PY{l+m+mi}{4}
+         \PY{n}{basis\PYZus{}type} \PY{o}{=} \PY{l+m+mi}{101}
+         
+         \PY{n}{err1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n}{err2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n}{erri} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+             \PY{n}{number\PYZus{}of\PYZus{}elements} \PY{o}{=} \PY{n}{number\PYZus{}coarse}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}
+             \PY{n}{u}\PY{p}{,} \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Pb}\PY{p}{,} \PY{n}{Tb} \PY{o}{=} \PY{n}{Poisson1D\PYZus{}solver}\PY{p}{(}\PY{n}{left\PYZus{}boundary\PYZus{}ex1}\PY{p}{,} \PY{n}{right\PYZus{}boundary\PYZus{}ex1}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} \PYZbs{}
+                                              \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D\PYZus{}ex1}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,}\PYZbs{}
+                                              \PY{n}{Gpn}\PY{p}{,} \PY{n}{coeff\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{source\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{Neumann\PYZus{}fun\PYZus{}ex3}\PY{p}{,} \PY{n}{Robin\PYZus{}fun\PYZus{}ex4}\PY{p}{,} \PY{n}{Robin\PYZus{}coeff\PYZus{}ex4}\PY{p}{)}
+             \PY{n}{err1}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{norm}\PY{p}{(}\PY{n}{u}\PY{p}{,} \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{exact\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{Gpn}\PY{p}{,} \PY{n}{norm\PYZus{}type} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{H1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{err2}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{norm}\PY{p}{(}\PY{n}{u}\PY{p}{,} \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{exact\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{Gpn}\PY{p}{,} \PY{n}{norm\PYZus{}type} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{L2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{erri}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{norm}\PY{p}{(}\PY{n}{u}\PY{p}{,} \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{exact\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{Gpn}\PY{p}{,} \PY{n}{norm\PYZus{}type} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Linf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{print\PYZus{}OrderTable3}\PY{p}{(}\PY{n}{number\PYZus{}coarse}\PY{p}{,} \PY{n}{erri}\PY{p}{,} \PY{n}{err2}\PY{p}{,} \PY{n}{err1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ h    Linf norm  order  L2 norm  order  H1 semi  order
+1/4    1.49e-02   --   7.20e-03   --   1.05e-01   --
+1/8    3.91e-03  1.93  1.80e-03  2.00  5.27e-02  1.00
+1/16   1.00e-03  1.97  4.49e-04  2.00  2.64e-02  1.00
+1/32   2.53e-04  1.98  1.12e-04  2.00  1.32e-02  1.00
+1/64   6.36e-05  1.99  2.80e-05  2.00  6.59e-03  1.00
+1/128  1.60e-05  2.00  7.01e-06  2.00  3.30e-03  1.00
+
+    \end{Verbatim}
+
+    \textbf{Example 2 in Different Measurements}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{number\PYZus{}coarse} \PY{o}{=} \PY{l+m+mi}{4}
+         \PY{n}{basis\PYZus{}type} \PY{o}{=} \PY{l+m+mi}{102}
+         
+         \PY{n}{err1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n}{err2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n}{erri} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+             \PY{n}{number\PYZus{}of\PYZus{}elements} \PY{o}{=} \PY{n}{number\PYZus{}coarse}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{n}{i}
+             \PY{n}{u}\PY{p}{,} \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Pb}\PY{p}{,} \PY{n}{Tb} \PY{o}{=} \PY{n}{Poisson1D\PYZus{}solver}\PY{p}{(}\PY{n}{left\PYZus{}boundary\PYZus{}ex1}\PY{p}{,} \PY{n}{right\PYZus{}boundary\PYZus{}ex1}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}elements}\PY{p}{,} \PYZbs{}
+                                              \PY{n}{generate\PYZus{}boundarynodes\PYZus{}1D\PYZus{}ex1}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,}\PYZbs{}
+                                              \PY{n}{Gpn}\PY{p}{,} \PY{n}{coeff\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{source\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{Dirichlet\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{Neumann\PYZus{}fun\PYZus{}ex3}\PY{p}{,} \PY{n}{Robin\PYZus{}fun\PYZus{}ex4}\PY{p}{,} \PY{n}{Robin\PYZus{}coeff\PYZus{}ex4}\PY{p}{)}
+             \PY{n}{err1}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{norm}\PY{p}{(}\PY{n}{u}\PY{p}{,} \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{exact\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{Gpn}\PY{p}{,} \PY{n}{norm\PYZus{}type} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{H1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{err2}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{norm}\PY{p}{(}\PY{n}{u}\PY{p}{,} \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{exact\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{Gpn}\PY{p}{,} \PY{n}{norm\PYZus{}type} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{L2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{erri}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{norm}\PY{p}{(}\PY{n}{u}\PY{p}{,} \PY{n}{P}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{Tb}\PY{p}{,} \PY{n}{basis\PYZus{}type}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{exact\PYZus{}fun\PYZus{}ex1}\PY{p}{,} \PY{n}{Gpn}\PY{p}{,} \PY{n}{norm\PYZus{}type} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Linf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{print\PYZus{}OrderTable3}\PY{p}{(}\PY{n}{number\PYZus{}coarse}\PY{p}{,} \PY{n}{erri}\PY{p}{,} \PY{n}{err2}\PY{p}{,} \PY{n}{err1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ h    Linf norm  order  L2 norm  order  H1 semi  order
+1/4    3.86e-04   --   2.10e-04   --   5.42e-03   --
+1/8    4.70e-05  3.04  2.61e-05  3.01  1.35e-03  2.00
+1/16   5.78e-06  3.02  3.26e-06  3.00  3.38e-04  2.00
+1/32   7.16e-07  3.01  4.08e-07  3.00  8.45e-05  2.00
+1/64   8.91e-08  3.01  5.10e-08  3.00  2.11e-05  2.00
+1/128  1.11e-08  3.00  6.37e-09  3.00  5.28e-06  2.00
+
+    \end{Verbatim}
+
+    \textbf{Conclusion:}
+
+For using polynomial basis functions of degree \(k\), \(\mathbb{P}^k\):
+- The \(L^2\) norm and \(L^\infty\) norm errors have convergence rate of
+\(\mathcal{O}(h^{k+1})\) - The \(H^1\) norm and \(H^1\) semi-norm errors
+have convergence rate of \(\mathcal{O}(h^{k})\) - The superconvergence
+of node errors normally can not be seen in general measurements, for
+superconvergence extracing one can see \href{http:/}{tutorial}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
